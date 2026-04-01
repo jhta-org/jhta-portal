@@ -2,20 +2,32 @@ baseURL = 'https://jhta-portal.pages.dev/'
 languageCode = 'ja'
 title = 'JHTA Tech Portal'
 theme = 'PaperMod'
+paginate = 10
 
 [params]
   description = 'Japan Hospitality Technology Association - 技術情報ポータル'
   author = 'JHTA'
-  defaultTheme = 'auto'
+  defaultTheme = 'light'
   ShowReadingTime = false
   ShowShareButtons = false
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
+  images = ['/images/logo.png']
+  label.iconURL = '/images/logo.png'
+  label.iconHeight = 35
+  label.text = ''
 
 [params.homeInfoParams]
   Title = 'JHTA Tech Portal'
-  Content = 'Japan Hospitality Technology Association の技術情報・成果物を公開するポータルサイトです。'
+  Content = '''ホスピタリティ業界の技術標準化・DX推進に関する技術情報・成果物を公開しています。
+
+データ標準化、API仕様、技術ガイドラインなどのドキュメントを提供します。'''
+
+[[params.socialIcons]]
+  name = 'globe'
+  title = 'JHTA Official'
+  url = 'https://j-hta.org/'
 
 [menu]
   [[menu.main]]
@@ -28,6 +40,18 @@ theme = 'PaperMod'
     name = 'Documents'
     url = '/documents/'
     weight = 20
+  [[menu.main]]
+    identifier = 'news'
+    name = 'News'
+    url = '/news/'
+    weight = 30
+  [[menu.main]]
+    identifier = 'official'
+    name = 'Official Site'
+    url = 'https://j-hta.org/'
+    weight = 40
+    [menu.main.params]
+      external = true
 
 [outputs]
   home = ['HTML', 'RSS']

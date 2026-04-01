@@ -1,0 +1,153 @@
+/* JHTA Brand Colors */
+:root {
+  --jhta-navy: #1b2d5b;
+  --jhta-gold: #c49a3c;
+  --jhta-light-bg: #f5f6f8;
+  --jhta-text: #2c3e50;
+}
+
+/* Override PaperMod theme colors */
+body {
+  --theme: #fff;
+  --primary: var(--jhta-navy);
+  --secondary: #5a6b80;
+  --tertiary: var(--jhta-light-bg);
+  --content: var(--jhta-text);
+  --border: #e0e4e8;
+}
+
+.dark {
+  --theme: #1d1e20;
+  --primary: #c9d1d9;
+  --secondary: #8b949e;
+  --tertiary: #161b22;
+  --content: #c9d1d9;
+  --border: #30363d;
+}
+
+/* Header */
+.nav {
+  background: var(--jhta-navy);
+  padding: 0.8rem 1rem;
+}
+
+header .nav {
+  max-width: 1200px;
+}
+
+#menu a {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+#menu a:hover,
+#menu .active {
+  color: var(--jhta-gold) !important;
+}
+
+/* Logo in header */
+.logo a {
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+/* Home info section */
+.first-entry {
+  border: none;
+  background: linear-gradient(135deg, var(--jhta-navy) 0%, #2a4080 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.first-entry .entry-content {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.first-entry .entry-header h1 {
+  color: #fff;
+  font-size: 2rem;
+}
+
+/* Post entries */
+.post-entry {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.post-entry:hover {
+  box-shadow: 0 4px 12px rgba(27, 45, 91, 0.1);
+}
+
+.post-entry .entry-header h2 a {
+  color: var(--jhta-navy);
+}
+
+/* Breadcrumbs */
+.breadcrumbs a {
+  color: var(--jhta-navy);
+}
+
+/* Links */
+.post-content a {
+  color: var(--jhta-navy);
+  text-decoration: underline;
+  text-decoration-color: var(--jhta-gold);
+  text-underline-offset: 3px;
+}
+
+.post-content a:hover {
+  color: var(--jhta-gold);
+}
+
+/* Footer */
+.footer {
+  background: var(--jhta-navy);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Section headers */
+.post-content h2 {
+  color: var(--jhta-navy);
+  border-bottom: 2px solid var(--jhta-gold);
+  padding-bottom: 0.3rem;
+}
+
+/* Tags */
+.post-tags a {
+  background: var(--jhta-light-bg);
+  color: var(--jhta-navy);
+  border: 1px solid var(--border);
+}
+
+.post-tags a:hover {
+  background: var(--jhta-navy);
+  color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .first-entry {
+    padding: 2rem 1.5rem;
+  }
+
+  .first-entry .entry-header h1 {
+    font-size: 1.5rem;
+  }
+}
