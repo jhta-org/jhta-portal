@@ -8,6 +8,7 @@ paginate = 10
   description = 'Japan Hospitality Technology Association - 技術情報ポータル'
   author = 'JHTA'
   defaultTheme = 'light'
+  disableThemeToggle = true
   ShowReadingTime = false
   ShowShareButtons = false
   ShowPostNavLinks = true
