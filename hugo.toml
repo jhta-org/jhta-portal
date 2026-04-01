@@ -32,27 +32,27 @@ theme = 'PaperMod'
 [menu]
   [[menu.main]]
     identifier = 'about'
-    name = 'About'
+    name = '概要'
     url = '/about/'
     weight = 10
   [[menu.main]]
     identifier = 'workgroups'
-    name = 'Working Groups'
+    name = 'ワーキンググループ'
     url = '/workgroups/'
     weight = 15
   [[menu.main]]
     identifier = 'documents'
-    name = 'Documents'
+    name = 'ドキュメント'
     url = '/documents/'
     weight = 20
   [[menu.main]]
     identifier = 'news'
-    name = 'News'
+    name = 'ニュース'
     url = '/news/'
     weight = 30
   [[menu.main]]
     identifier = 'official'
-    name = 'Official Site'
+    name = '公式サイト'
     url = 'https://j-hta.org/'
     weight = 40
     [menu.main.params]

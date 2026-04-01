@@ -1,0 +1,65 @@
+{{ define "main" }}
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label">Documents</span>
+    <h1 class="section-title">{{ .Title }}</h1>
+    <p class="section-desc">{{ .Description }}</p>
+
+    <!-- フィルター -->
+    <div class="doc-filters" id="doc-filters">
+      <button class="doc-filter-btn active" data-filter="all">すべて</button>
+      <button class="doc-filter-btn" data-filter="データ標準">データ標準</button>
+      <button class="doc-filter-btn" data-filter="API仕様">API仕様</button>
+      <button class="doc-filter-btn" data-filter="ガイドライン">ガイドライン</button>
+      <button class="doc-filter-btn" data-filter="その他">その他</button>
+    </div>
+
+    <div class="doc-list" id="doc-list">
+      {{ range .Pages.ByDate.Reverse }}
+      <article class="doc-card" data-category="{{ .Params.category }}">
+        <div class="doc-card-meta">
+          <span class="doc-category doc-cat-{{ .Params.category | urlize }}">{{ .Params.category }}</span>
+          {{ if .Params.wg }}<span class="doc-wg">{{ .Params.wg }}</span>{{ end }}
+          {{ if eq .Params.status "members" }}<span class="doc-status-badge">会員限定</span>{{ end }}
+        </div>
+        <h2 class="doc-card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <p class="doc-card-desc">{{ .Description }}</p>
+        <div class="doc-card-files">
+          {{ range .Params.files }}
+          <a href="{{ .url }}" class="doc-file-link doc-file-{{ .type }}" target="_blank" rel="noopener">
+            {{ if eq .type "pdf" }}
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M4 18h12a2 2 0 002-2V6l-4-4H4a2 2 0 00-2 2v12a2 2 0 002 2zm8-14l3 3h-3V4zM6 9h8v1H6V9zm0 3h8v1H6v-1zm0 3h5v1H6v-1z"/></svg>
+            {{ else if eq .type "spreadsheet" }}
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2 0v2h2V5H5zm4 0v2h2V5H9zm4 0v2h2V5h-2zM5 9v2h2V9H5zm4 0v2h2V9H9zm4 0v2h2V9h-2zM5 13v2h2v-2H5zm4 0v2h2v-2H9zm4 0v2h2v-2h-2z"/></svg>
+            {{ else }}
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M12.293 2.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-8 8A1 1 0 019 16H5a1 1 0 01-1-1v-4a1 1 0 01.293-.707l8-8zM5 15h4l7-7-4-4-7 7v4z"/></svg>
+            {{ end }}
+            {{ .name }}
+          </a>
+          {{ end }}
+        </div>
+        <div class="doc-card-footer">
+          <time>{{ .Date.Format "2006年01月02日" }}</time>
+          <a href="{{ .Permalink }}" class="doc-detail-link">詳細 →</a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterBtns = document.querySelectorAll('.doc-filter-btn');
+  const docCards = document.querySelectorAll('.doc-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      docCards.forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+{{ end }}
