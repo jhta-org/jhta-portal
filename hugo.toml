@@ -21,10 +21,8 @@ theme = 'PaperMod'
   label.text = ''
 
 [params.homeInfoParams]
-  Title = 'JHTA Tech Portal'
-  Content = '''ホスピタリティ業界の技術標準化・DX推進に関する技術情報・成果物を公開しています。
-
-データ標準化、API仕様、技術ガイドラインなどのドキュメントを提供します。'''
+  Title = 'Hospitality × Technology'
+  Content = '''ホスピタリティ業界の技術標準化・DX推進を支える技術情報ポータルです。データ標準、API仕様、ガイドラインなどの成果物を公開しています。'''
 
 [[params.socialIcons]]
   name = 'globe'
