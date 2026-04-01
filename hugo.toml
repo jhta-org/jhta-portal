@@ -36,6 +36,11 @@ paginate = 10
     url = '/about/'
     weight = 10
   [[menu.main]]
+    identifier = 'workgroups'
+    name = 'Working Groups'
+    url = '/workgroups/'
+    weight = 15
+  [[menu.main]]
     identifier = 'documents'
     name = 'Documents'
     url = '/documents/'

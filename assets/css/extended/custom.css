@@ -141,6 +141,62 @@ header .nav {
   color: #fff;
 }
 
+/* WG Badges */
+.wg-badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.badge-proposal {
+  background: #e8edf3;
+  color: var(--jhta-navy);
+}
+
+.badge-pre-wg {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.badge-wg {
+  background: var(--jhta-navy);
+  color: #fff;
+}
+
+.badge-open {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-member {
+  background: linear-gradient(135deg, var(--jhta-gold), #d4a94c);
+  color: #fff;
+}
+
+/* WG Flow layout */
+.wg-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.wg-stage {
+  background: var(--jhta-light-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid var(--jhta-navy);
+}
+
+.wg-stage h4 {
+  margin-top: 0.5rem;
+  color: var(--jhta-navy);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .first-entry {
