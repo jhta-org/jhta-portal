@@ -1,0 +1,38 @@
+baseURL = 'https://jhta-portal.pages.dev/'
+languageCode = 'ja'
+title = 'JHTA Tech Portal'
+theme = 'PaperMod'
+
+[params]
+  description = 'Japan Hospitality Technology Association - 技術情報ポータル'
+  author = 'JHTA'
+  defaultTheme = 'auto'
+  ShowReadingTime = false
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+
+[params.homeInfoParams]
+  Title = 'JHTA Tech Portal'
+  Content = 'Japan Hospitality Technology Association の技術情報・成果物を公開するポータルサイトです。'
+
+[menu]
+  [[menu.main]]
+    identifier = 'about'
+    name = 'About'
+    url = '/about/'
+    weight = 10
+  [[menu.main]]
+    identifier = 'documents'
+    name = 'Documents'
+    url = '/documents/'
+    weight = 20
+
+[outputs]
+  home = ['HTML', 'RSS']
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
