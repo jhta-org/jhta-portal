@@ -1,0 +1,127 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <img src="/images/logo.png" alt="JHTA" class="hero-logo" />
+    <h1>Hospitality × Technology</h1>
+    <p class="hero-sub">ホスピタリティ業界の技術標準化・DX推進を支える技術情報ポータル</p>
+    <div class="hero-actions">
+      <a href="/workgroups/" class="btn btn-primary">Working Groups</a>
+      <a href="/documents/" class="btn btn-outline">Documents</a>
+    </div>
+  </div>
+</section>
+
+<!-- Mission -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="two-col">
+      <div class="col">
+        <span class="section-label">Our Mission</span>
+        <h2>ホスピタリティ業界の<br>技術標準を創る</h2>
+        <p>JHTAは、宿泊・観光産業におけるデータ標準化・API仕様策定を通じて、業界全体のDX推進と技術エコシステムの構築を目指します。</p>
+      </div>
+      <div class="col">
+        <span class="section-label">Our Vision</span>
+        <h2>オープンな技術で<br>業界をつなぐ</h2>
+        <p>オープンな技術標準と共同開発により、システム間の相互運用性を高め、ホスピタリティ業界のイノベーションを加速させます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Activity Areas -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label">Focus Areas</span>
+    <h2 class="section-title">活動領域</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>データ標準化</h3>
+        <p>宿泊業界のデータフォーマット標準を策定し、システム間のデータ連携を円滑にします。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>API仕様策定</h3>
+        <p>PMS・チャネルマネージャー・CRM等のシステム間連携のためのAPI標準仕様を策定します。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎓</div>
+        <h3>人材育成</h3>
+        <p>技術者向け教育プログラムや勉強会を通じて、業界のDX人材を育成します。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>技術検証</h3>
+        <p>新技術の検証・評価を行い、業界への導入指針となるレポートを公開します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Working Groups -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <span class="section-label">Working Groups</span>
+    <h2 class="section-title">ワーキンググループ</h2>
+    <p class="section-desc">3段階のオープンなプロセスで、業界課題の解決に取り組んでいます。</p>
+    <div class="card-grid cols-3">
+      <div class="card card-step">
+        <div class="step-number">01</div>
+        <h3>業界課題の提案</h3>
+        <p>業界で感じるDX課題を誰でも自由に提案できます。</p>
+        <span class="wg-badge badge-open">誰でも投稿可能</span>
+      </div>
+      <div class="card card-step">
+        <div class="step-number">02</div>
+        <h3>プレワーキンググループ</h3>
+        <p>提案が採択された課題について、オープンに議論・検討を行います。</p>
+        <span class="wg-badge badge-open">誰でも参加可能</span>
+      </div>
+      <div class="card card-step">
+        <div class="step-number">03</div>
+        <h3>ワーキンググループ</h3>
+        <p>本格的な課題解決に取り組み、技術標準やガイドラインを策定します。</p>
+        <span class="wg-badge badge-member">会員限定</span>
+      </div>
+    </div>
+    <div class="section-cta">
+      <a href="/workgroups/" class="btn btn-primary">ワーキンググループ詳細 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- News -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label">News</span>
+    <h2 class="section-title">お知らせ</h2>
+    <div class="news-list">
+      {{ range first 5 (where .Site.RegularPages "Section" "news") }}
+      <a href="{{ .Permalink }}" class="news-item">
+        <time>{{ .Date.Format "2006.01.02" }}</time>
+        <span class="news-title">{{ .Title }}</span>
+      </a>
+      {{ end }}
+    </div>
+    <div class="section-cta">
+      <a href="/news/" class="btn btn-outline">ニュース一覧 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-cta-block">
+  <div class="section-inner">
+    <h2>ホスピタリティ業界の未来を、一緒に創りませんか？</h2>
+    <p>JHTAでは、業界のDX課題に取り組む仲間を募集しています。</p>
+    <div class="hero-actions">
+      <a href="https://j-hta.org/" class="btn btn-primary" target="_blank">JHTA公式サイト →</a>
+      <a href="/workgroups/proposals/" class="btn btn-outline">課題を提案する</a>
+    </div>
+  </div>
+</section>
+
+{{ end }}
