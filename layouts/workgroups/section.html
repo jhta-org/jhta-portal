@@ -1,0 +1,149 @@
+{{ define "main" }}
+<section class="section">
+  <div class="section-inner">
+
+    {{/* ── Page Header ───────────────────────────────── */}}
+    <div class="pg-header">
+      <span class="section-label">Working Groups</span>
+      <h1 class="pg-title">ワーキンググループ</h1>
+      <p class="pg-desc">ホスピタリティ業界のDX課題を解決するため、提案・議論・策定の3段階でワーキンググループ活動を推進しています。</p>
+    </div>
+
+    {{/* ── Activity Flow ───────────────────────────────── */}}
+    <div class="wg-block">
+      <h2 class="wg-block-heading">活動の流れ</h2>
+      <div class="wg-steps">
+
+        <div class="wg-step-card">
+          <div class="wg-step-top">
+            <span class="wg-badge badge-proposal">STEP 1</span>
+          </div>
+          <h3 class="wg-step-title">業界課題の提案</h3>
+          <p class="wg-step-desc">業界で感じるDX課題を誰でも自由に提案できます。提案された課題は協会で検討し、プレWGとして立ち上げるかを判断します。</p>
+          <div class="wg-step-foot">
+            <span class="wg-badge badge-open">誰でも投稿可能</span>
+          </div>
+        </div>
+
+        <div class="wg-steps-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <div class="wg-step-card">
+          <div class="wg-step-top">
+            <span class="wg-badge badge-pre-wg">STEP 2</span>
+          </div>
+          <h3 class="wg-step-title">プレワーキンググループ</h3>
+          <p class="wg-step-desc">採択された課題についてオープンに議論・検討を行います。業界関係者であれば誰でも参加できます。</p>
+          <div class="wg-step-foot">
+            <span class="wg-badge badge-open">誰でも参加可能</span>
+          </div>
+        </div>
+
+        <div class="wg-steps-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <div class="wg-step-card">
+          <div class="wg-step-top">
+            <span class="wg-badge badge-wg">STEP 3</span>
+          </div>
+          <h3 class="wg-step-title">ワーキンググループ</h3>
+          <p class="wg-step-desc">プレWGでの検討を経て、本格的な課題解決に取り組みます。技術標準・ガイドラインなどの成果物を策定します。</p>
+          <div class="wg-step-foot">
+            <span class="wg-badge badge-member">JHTA会員限定</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {{/* ── Three Action Panels ───────────────────────── */}}
+    <div class="wg-block">
+      <h2 class="wg-block-heading">参加する</h2>
+      <div class="wg-panels">
+
+        {{/* Pre-WG Panel */}}
+        <div class="wg-panel">
+          <div class="wg-panel-hd">
+            <span class="wg-badge badge-pre-wg">Pre-WG</span>
+            <h3 class="wg-panel-title">プレワーキンググループ</h3>
+            <p class="wg-panel-desc">採択された課題についてオープンに議論・検討を行うグループです。業界関係者であれば誰でも参加できます。</p>
+          </div>
+          <div class="wg-panel-items">
+            {{ with site.GetPage "/workgroups/pre-wg" }}
+              {{ $pages := where .Pages ".File.ContentBaseName" "ne" "apply" }}
+              {{ if $pages }}
+                {{ range $pages }}
+                <a href="{{ .Permalink }}" class="wg-item-row">
+                  <span class="wg-item-name">{{ .Title }}</span>
+                  <span class="wg-item-summary">{{ .Params.summary | default .Description }}</span>
+                </a>
+                {{ end }}
+              {{ else }}
+                <p class="wg-panel-empty">現在、プレWGは準備中です。</p>
+              {{ end }}
+            {{ end }}
+          </div>
+          <div class="wg-panel-ft">
+            <a href="/workgroups/pre-wg/" class="btn-sm btn-ghost">一覧を見る</a>
+            <a href="/workgroups/pre-wg/apply/" class="btn-sm btn-navy">参加申し込み</a>
+          </div>
+        </div>
+
+        {{/* WG Panel */}}
+        <div class="wg-panel">
+          <div class="wg-panel-hd">
+            <div class="wg-panel-badges">
+              <span class="wg-badge badge-wg">WG</span>
+              <span class="wg-badge badge-member">JHTA会員限定</span>
+            </div>
+            <h3 class="wg-panel-title">ワーキンググループ</h3>
+            <p class="wg-panel-desc">プレWGの議論を経て、技術標準・ガイドラインなどの具体的な成果物を策定するグループです。</p>
+          </div>
+          <div class="wg-panel-items">
+            {{ with site.GetPage "/workgroups/wg" }}
+              {{ $pages := where .Pages ".File.ContentBaseName" "ne" "apply" }}
+              {{ if $pages }}
+                {{ range $pages }}
+                <a href="{{ .Permalink }}" class="wg-item-row">
+                  <span class="wg-item-name">{{ .Title }}</span>
+                  <span class="wg-item-summary">{{ .Params.summary | default .Description }}</span>
+                </a>
+                {{ end }}
+              {{ else }}
+                <p class="wg-panel-empty">現在、WGは準備中です。</p>
+              {{ end }}
+            {{ end }}
+          </div>
+          <div class="wg-panel-ft">
+            <a href="/workgroups/wg/" class="btn-sm btn-ghost">一覧を見る</a>
+            <a href="/workgroups/wg/apply/" class="btn-sm btn-navy">参加申し込み</a>
+          </div>
+        </div>
+
+        {{/* Proposals Panel */}}
+        <div class="wg-panel wg-panel-accent">
+          <div class="wg-panel-hd">
+            <span class="wg-badge badge-proposal">Proposal</span>
+            <h3 class="wg-panel-title">業界課題の提案</h3>
+            <p class="wg-panel-desc">ホスピタリティ業界のDX課題を誰でも自由に提案できます。提案が採択されるとプレWGとして活動がスタートします。</p>
+          </div>
+          <div class="wg-panel-items">
+            <ul class="wg-proposal-list">
+              <li>業界関係者なら誰でも提案可能</li>
+              <li>採択された課題はプレWGとして立ち上げ</li>
+              <li>年間を通じて随時受付中</li>
+            </ul>
+          </div>
+          <div class="wg-panel-ft">
+            <a href="/workgroups/proposals/" class="btn-sm btn-gold">課題を提案する</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}

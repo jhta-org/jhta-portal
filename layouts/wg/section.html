@@ -1,0 +1,48 @@
+{{ define "main" }}
+<section class="section">
+  <div class="section-inner">
+
+    <div class="pg-header">
+      <span class="section-label">Working Groups / WG</span>
+      <h1 class="pg-title">ワーキンググループ</h1>
+      <p class="pg-desc">プレWGでの検討を経て、技術標準・ガイドラインなどの具体的な成果物を策定するグループです。</p>
+      <span class="wg-badge badge-member" style="margin-top:0.5rem;display:inline-block">JHTA会員限定</span>
+    </div>
+
+    {{/* WG Cards */}}
+    {{ $pages := where .Pages ".File.ContentBaseName" "ne" "apply" }}
+    {{ if $pages }}
+    <div class="wg-cards-grid">
+      {{ range $pages }}
+      <article class="wg-card">
+        <div class="wg-card-hd">
+          <span class="wg-badge badge-wg">WG</span>
+          <span class="wg-badge badge-member">会員限定</span>
+        </div>
+        <h2 class="wg-card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <p class="wg-card-desc">{{ .Params.summary | default .Description }}</p>
+        <div class="wg-card-ft">
+          <a href="{{ .Permalink }}" class="btn-sm btn-ghost">詳細を見る</a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="wg-empty-state">
+      <p>現在、WGは準備中です。</p>
+    </div>
+    {{ end }}
+
+    <div class="wg-apply-cta">
+      <div class="wg-apply-cta-inner">
+        <div>
+          <h3 class="wg-apply-cta-title">WGに参加する</h3>
+          <p class="wg-apply-cta-desc">JHTA会員でWGへの参加をご希望の方は申し込みフォームからお申し込みください。入会については <a href="https://j-hta.org/" target="_blank" rel="noopener">会員募集ページ</a> をご確認ください。</p>
+        </div>
+        <a href="/workgroups/wg/apply/" class="btn-primary">参加申し込みフォームへ</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}

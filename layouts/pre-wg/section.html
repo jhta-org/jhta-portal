@@ -1,0 +1,47 @@
+{{ define "main" }}
+<section class="section">
+  <div class="section-inner">
+
+    <div class="pg-header">
+      <span class="section-label">Working Groups / Pre-WG</span>
+      <h1 class="pg-title">プレワーキンググループ</h1>
+      <p class="pg-desc">提案が採択された課題について、オープンに議論・検討を行うグループです。業界関係者であれば誰でも参加できます。</p>
+      <span class="wg-badge badge-open" style="margin-top:0.5rem;display:inline-block">誰でも参加可能</span>
+    </div>
+
+    {{/* WG Cards */}}
+    {{ $pages := where .Pages ".File.ContentBaseName" "ne" "apply" }}
+    {{ if $pages }}
+    <div class="wg-cards-grid">
+      {{ range $pages }}
+      <article class="wg-card">
+        <div class="wg-card-hd">
+          <span class="wg-badge badge-pre-wg">プレWG</span>
+        </div>
+        <h2 class="wg-card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <p class="wg-card-desc">{{ .Params.summary | default .Description }}</p>
+        <div class="wg-card-ft">
+          <a href="{{ .Permalink }}" class="btn-sm btn-ghost">詳細を見る</a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="wg-empty-state">
+      <p>現在、プレWGは準備中です。</p>
+    </div>
+    {{ end }}
+
+    <div class="wg-apply-cta">
+      <div class="wg-apply-cta-inner">
+        <div>
+          <h3 class="wg-apply-cta-title">プレWGに参加する</h3>
+          <p class="wg-apply-cta-desc">参加をご希望の方は申し込みフォームからお申し込みください。</p>
+        </div>
+        <a href="/workgroups/pre-wg/apply/" class="btn-primary">参加申し込みフォームへ</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}
