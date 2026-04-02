@@ -1,4 +1,4 @@
-baseURL = 'https://jhta-portal.pages.dev/'
+baseURL = 'https://tech.j-hta.org/'
 languageCode = 'ja'
 title = 'JHTA Tech Portal'
 copyright = '© 2026 日本ホスピタリティテクノロジー協会（JHTA）'
