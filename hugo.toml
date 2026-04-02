@@ -1,6 +1,7 @@
 baseURL = 'https://jhta-portal.pages.dev/'
 languageCode = 'ja'
 title = 'JHTA Tech Portal'
+copyright = '© 2026 日本ホスピタリティテクノロジー協会（JHTA）'
 theme = 'PaperMod'
 [pagination]
   pagerSize = 10
