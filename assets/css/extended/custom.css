@@ -1073,6 +1073,18 @@ header.header {
   text-decoration: underline;
 }
 
+.wg-apply-cta--disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.btn-disabled {
+  display: inline-block;
+  cursor: not-allowed;
+  opacity: 0.5;
+  user-select: none;
+}
+
 .wg-empty-state {
   padding: 3rem;
   text-align: center;
