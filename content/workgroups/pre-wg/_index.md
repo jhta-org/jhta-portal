@@ -16,3 +16,7 @@ ShowBreadCrumbs: true
 | テーマ | 概要 | 参加方法 |
 |---|---|---|
 | [データ標準化](/workgroups/pre-wg/data-standard/) | 宿泊業界のデータフォーマット標準化の検討 | オープン参加 |
+
+---
+
+参加ご希望の方は[プレWG参加申し込みフォーム](/workgroups/pre-wg/apply/)からお申し込みください。

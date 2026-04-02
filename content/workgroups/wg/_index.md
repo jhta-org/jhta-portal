@@ -11,10 +11,13 @@ ShowBreadCrumbs: true
 
 <span class="wg-badge badge-member">JHTA会員限定</span>
 
-参加をご希望の方は [会員募集ページ](https://j-hta.org/) をご確認ください。
-
 ---
 
 | テーマ | 概要 | 状態 |
 |---|---|---|
 | [API仕様策定](/workgroups/wg/api-spec/) | システム間連携のためのAPI標準仕様の策定 | 活動中 |
+
+---
+
+JHTA会員で参加をご希望の方は[WG参加申し込みフォーム](/workgroups/wg/apply/)からお申し込みください。
+入会についての詳細は [会員募集ページ](https://j-hta.org/) をご確認ください。

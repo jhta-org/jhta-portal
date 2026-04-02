@@ -2,6 +2,12 @@ const BASIC_USER = "jhta";
 const BASIC_PASS = "jhta2026";
 
 async function handleRequest(context) {
+  // Allow API endpoints without basic auth (they are protected by server-side secrets)
+  const url = new URL(context.request.url);
+  if (url.pathname.startsWith("/api/")) {
+    return await context.next();
+  }
+
   const authorization = context.request.headers.get("Authorization");
 
   if (authorization) {
