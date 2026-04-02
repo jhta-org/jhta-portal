@@ -48,18 +48,21 @@ body {
   max-width: none;
 }
 
-/* --- Header --- */
-header {
+/* --- Header (site nav only — NOT post-header on inner pages) --- */
+header.header {
   background: var(--jhta-navy);
 }
 
 .nav {
   background: var(--jhta-navy);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
-  padding: 0;
   max-width: var(--jhta-max-width);
   margin: 0 auto;
   padding: 0.6rem 2rem;
+  /* Prevent wrapping at medium viewport widths */
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo a {
@@ -72,11 +75,17 @@ header {
   text-decoration: none !important;
 }
 
+/* Logo image badge — the PNG has a white background so we style it
+   as an explicit white badge that looks intentional on the navy bar */
 .logo-img {
   height: 36px;
   width: auto;
   display: block;
   flex-shrink: 0;
+  background: #fff;
+  padding: 3px 6px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
 }
 
 .logo-text {
@@ -89,16 +98,18 @@ header {
 
 #menu {
   gap: 0;
+  flex-shrink: 0;
 }
 
 #menu a {
-  color: rgba(255,255,255,0.75) !important;
+  color: rgba(255,255,255,0.80) !important;
   font-weight: 500;
   font-size: 0.88rem;
   padding: 0.5rem 1rem;
   border-bottom: 3px solid transparent;
   border-radius: 0;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 #menu a:hover {
@@ -228,13 +239,13 @@ header {
   color: #fff;
 }
 
-/* On light backgrounds */
-.section .btn-outline {
+/* On light backgrounds (not on dark CTA block) */
+.section:not(.section-cta-block) .btn-outline {
   color: var(--jhta-navy);
   border-color: var(--jhta-border);
 }
 
-.section .btn-outline:hover {
+.section:not(.section-cta-block) .btn-outline:hover {
   background: var(--jhta-bg-alt);
   border-color: var(--jhta-navy);
   color: var(--jhta-navy);
@@ -434,10 +445,68 @@ header {
    INNER PAGES (post-content)
    ============================================ */
 
+/* Full-width navy page-title banner on inner pages (single + list/section) */
 .post-header,
+.page-header {
+  background: var(--jhta-navy);
+  width: 100%;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 2.5rem 0;
+  box-sizing: border-box;
+}
+
+/* Constrain the title / meta text inside the banner */
+.post-header .post-title,
+.post-header h1,
+.page-header h1 {
+  color: #fff !important;
+  font-weight: 800;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  line-height: 1.25;
+}
+
+.post-header .post-meta,
+.page-header .post-meta {
+  color: rgba(255,255,255,0.6) !important;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 0.5rem;
+}
+
+/* Breadcrumb inside the page-header navy banner */
+.page-header .breadcrumbs {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.page-header .breadcrumbs,
+.page-header .breadcrumbs a {
+  color: rgba(255,255,255,0.55) !important;
+}
+
+.page-header .breadcrumbs a:hover {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+/* Wider content area for inner pages (1400px instead of 1200px) */
 .post-content,
 .breadcrumbs {
-  max-width: var(--jhta-max-width);
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 2rem;
@@ -448,13 +517,7 @@ header {
   font-size: 1rem;
   line-height: 1.85;
   color: var(--jhta-text);
-}
-
-.post-header h1 {
-  color: var(--jhta-text-heading);
-  font-weight: 800;
-  font-size: 2rem;
-  letter-spacing: -0.02em;
+  padding-top: 2rem;
 }
 
 .post-content h2 {
@@ -717,6 +780,31 @@ header {
 /* ============================================
    Responsive
    ============================================ */
+
+/* Medium viewports: compact nav so all items fit without wrapping */
+@media (max-width: 960px) {
+  #menu a {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.84rem;
+  }
+  .logo-img {
+    height: 30px;
+  }
+  .logo-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 840px) {
+  #menu a {
+    padding: 0.5rem 0.45rem;
+    font-size: 0.81rem;
+  }
+  .logo-text {
+    display: none; /* hide text, keep badge logo only */
+  }
+}
+
 @media (max-width: 968px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
