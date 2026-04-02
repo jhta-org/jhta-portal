@@ -557,13 +557,18 @@ header.header {
 
 /* --- Tables --- */
 .post-content table {
-  width: 100%;
+  width: calc(100% + 4rem); /* break out of 2rem padding on each side */
+  margin-left: -2rem;
+  margin-right: -2rem;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: var(--jhta-radius);
+  border-radius: 0;          /* no radius when spanning full width */
   overflow: hidden;
   border: 1px solid var(--jhta-border);
-  margin: 1.5rem 0;
+  border-left: none;
+  border-right: none;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .post-content table thead {
