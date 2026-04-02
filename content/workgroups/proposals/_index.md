@@ -2,6 +2,7 @@
 title: "業界課題の提案"
 date: 2026-04-01
 draft: false
+type: "proposals"
 ShowBreadCrumbs: true
 ---
 
