@@ -557,25 +557,19 @@ header.header {
 
 /* --- Tables --- */
 .post-content table {
-  width: calc(100% + 4rem); /* break out of 2rem padding on each side */
-  margin-left: -2rem;
-  margin-right: -2rem;
-  border-collapse: separate;
+  display: table;           /* override PaperMod's display:block on table elements */
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
   border-spacing: 0;
-  border-radius: 0;          /* no radius when spanning full width */
-  overflow: hidden;
   border: 1px solid var(--jhta-border);
-  border-left: none;
-  border-right: none;
+  border-radius: 8px;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.post-content table thead {
-  background: var(--jhta-navy);
-}
-
 .post-content table th {
+  background: var(--jhta-navy);
   color: #fff;
   font-weight: 600;
   font-size: 0.85rem;
@@ -584,6 +578,14 @@ header.header {
   padding: 0.75rem 1rem;
   text-align: left;
   border: none;
+}
+
+/* Round top corners on first/last th */
+.post-content table thead tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+.post-content table thead tr:first-child th:last-child {
+  border-top-right-radius: 8px;
 }
 
 .post-content table td {
