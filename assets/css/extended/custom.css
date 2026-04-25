@@ -384,20 +384,22 @@ header.header {
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--jhta-border);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .news-item {
   display: flex;
   align-items: center;
   gap: 2rem;
-  padding: 1.25rem 0;
+  padding: 1.25rem 0.5rem;
   border-bottom: 1px solid var(--jhta-border-light);
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: background 0.15s ease, padding 0.2s ease;
 }
 
 .news-item:hover {
-  padding-left: 0.5rem;
+  padding-left: 1rem;
   background: var(--jhta-bg-alt);
 }
 
@@ -413,10 +415,22 @@ header.header {
   font-size: 1rem;
   font-weight: 600;
   color: var(--jhta-text-heading);
+  flex: 1;
+}
+
+.news-arrow {
+  color: var(--jhta-text-light);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .news-item:hover .news-title {
   color: var(--jhta-navy);
+}
+
+.news-item:hover .news-arrow {
+  color: var(--jhta-gold);
+  transform: translateX(4px);
 }
 
 /* --- CTA Block --- */
