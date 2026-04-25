@@ -3,51 +3,12 @@
 <!-- Hero -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-grid">
-
-      <div class="hero-text">
-        <span class="hero-label">JHTA Tech Portal</span>
-        <h1>Hospitality<br>×<br><span class="accent">Technology</span></h1>
-        <p class="hero-sub">ホスピタリティ業界の技術標準化・DX推進を支える、オープンな技術情報ポータル。データ標準・API仕様・ガイドラインを公開し、業界全体のイノベーションを加速します。</p>
-        <div class="hero-actions">
-          <a href="/workgroups/" class="btn btn-primary">Working Groups →</a>
-          <a href="/documents/" class="btn btn-outline">Documents</a>
-        </div>
-      </div>
-
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-visual-card hv-1">
-          <span class="hv-label">Data Standard</span>
-          <div class="hv-title">PMS標準データセット</div>
-          <div class="hv-sub">JSON Schema · v1.0</div>
-        </div>
-        <div class="hero-visual-card hv-2">
-          <span class="hv-label">API Spec</span>
-          <div class="hv-title">予約データ連携API</div>
-          <div class="hv-sub">OpenAPI 3.1 · Draft</div>
-        </div>
-        <div class="hero-visual-card hv-3">
-          <span class="hv-label">Working Group</span>
-          <div class="hv-title">業界DX課題ディスカッション</div>
-          <div class="hv-sub">2026 Q2 / 検討中</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="hero-metrics">
-      <div class="hero-metric">
-        <div class="hero-metric-value">3<span class="unit">領域</span></div>
-        <div class="hero-metric-label">Activity Areas</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-value">{{ len (where .Site.RegularPages "Section" "documents") }}<span class="unit">件</span></div>
-        <div class="hero-metric-label">Public Documents</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-value">Open<span class="unit"></span></div>
-        <div class="hero-metric-label">Industry Participation</div>
-      </div>
+    <span class="hero-label">JHTA Tech Portal</span>
+    <h1>Hospitality × Technology</h1>
+    <p class="hero-sub">ホスピタリティ業界の技術標準化・DX推進を支える技術情報ポータル</p>
+    <div class="hero-actions">
+      <a href="/workgroups/" class="btn btn-primary">Working Groups</a>
+      <a href="/documents/" class="btn btn-outline">Documents</a>
     </div>
   </div>
 </section>
@@ -77,23 +38,14 @@
     <h2 class="section-title">Tech Portal で扱う領域</h2>
     <div class="card-grid cols-3">
       <div class="card">
-        <span class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </span>
         <h3>ワーキンググループ</h3>
         <p>業界のDX課題をオープンなプロセスで議論・検討し、技術標準やガイドラインを策定します。</p>
       </div>
       <div class="card">
-        <span class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </span>
         <h3>成果物の公開</h3>
         <p>WGが策定したデータ標準・API仕様・ガイドライン等の技術ドキュメントを公開します。</p>
       </div>
       <div class="card">
-        <span class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-        </span>
         <h3>ニュース</h3>
         <p>WGの活動報告、イベント情報、技術標準のリリースなど、最新のお知らせを発信します。</p>
       </div>
@@ -108,43 +60,24 @@
     <h2 class="section-title">ワーキンググループ</h2>
     <p class="section-desc">3段階のオープンなプロセスで、業界課題の解決に取り組んでいます。</p>
     <div class="card-grid cols-3">
-
       <div class="card card-step">
-        <div class="card-step-head">
-          <div class="step-number">01</div>
-          <span class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </span>
-        </div>
+        <div class="step-number">01</div>
         <h3>業界課題の提案</h3>
         <p>業界で感じるDX課題を誰でも自由に提案できます。</p>
         <span class="wg-badge badge-open">誰でも投稿可能</span>
       </div>
-
       <div class="card card-step">
-        <div class="card-step-head">
-          <div class="step-number">02</div>
-          <span class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </span>
-        </div>
+        <div class="step-number">02</div>
         <h3>プレワーキンググループ</h3>
         <p>提案が採択された課題について、オープンに議論・検討を行います。</p>
         <span class="wg-badge badge-open">誰でも参加可能</span>
       </div>
-
       <div class="card card-step">
-        <div class="card-step-head">
-          <div class="step-number">03</div>
-          <span class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </span>
-        </div>
+        <div class="step-number">03</div>
         <h3>ワーキンググループ</h3>
         <p>本格的な課題解決に取り組み、技術標準やガイドラインを策定します。</p>
         <span class="wg-badge badge-member">会員限定</span>
       </div>
-
     </div>
     <div class="section-cta">
       <a href="/workgroups/" class="btn btn-primary">ワーキンググループ詳細 →</a>
@@ -159,20 +92,9 @@
     <h2 class="section-title">お知らせ</h2>
     <div class="news-list">
       {{ range first 5 (where .Site.RegularPages "Section" "news") }}
-      {{ $cat := .Params.category | default (index .Params.tags 0) | default "お知らせ" }}
-      {{ $catClass := "" }}
-      {{ if in (slice "イベント" "Event") $cat }}{{ $catClass = "cat-event" }}
-      {{ else if in (slice "リリース" "Release") $cat }}{{ $catClass = "cat-release" }}
-      {{ else if in (slice "活動報告" "Report") $cat }}{{ $catClass = "cat-report" }}
-      {{ end }}
       <a href="{{ .Permalink }}" class="news-item">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
-        <span class="news-cat {{ $catClass }}">{{ $cat }}</span>
-        <span class="news-body">
-          <span class="news-title">{{ .Title }}</span>
-          {{ with .Params.summary }}<span class="news-excerpt">{{ . }}</span>{{ end }}
-        </span>
-        <svg class="news-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <time>{{ .Date.Format "2006.01.02" }}</time>
+        <span class="news-title">{{ .Title }}</span>
       </a>
       {{ end }}
     </div>
@@ -187,7 +109,7 @@
   <div class="section-inner">
     <h2>ホスピタリティ業界の未来を、一緒に創りませんか？</h2>
     <p>JHTAでは、業界のDX課題に取り組む仲間を募集しています。</p>
-    <div class="hero-actions" style="justify-content:center">
+    <div class="hero-actions">
       <a href="https://j-hta.org/" class="btn btn-primary" target="_blank">JHTA公式サイト →</a>
       <a href="/workgroups/proposals/" class="btn btn-outline">課題を提案する</a>
     </div>
