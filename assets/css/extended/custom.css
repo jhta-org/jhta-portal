@@ -1572,10 +1572,46 @@ header.header {
 /* Body */
 .doc-body {
   font-size: 0.97rem;
-  line-height: 1.8;
+  line-height: 1.9;
   color: var(--jhta-text);
   margin-bottom: 3rem;
 }
+
+.doc-body h2 {
+  font-size: 1.4rem;
+  color: var(--jhta-text-heading);
+  margin: 3rem 0 1rem;
+  padding-left: 0.85rem;
+  border-left: 4px solid var(--jhta-navy);
+  line-height: 1.4;
+}
+
+.doc-body h2:first-child { margin-top: 0; }
+
+.doc-body h3 {
+  font-size: 1.1rem;
+  color: var(--jhta-text-heading);
+  margin: 2rem 0 0.75rem;
+  line-height: 1.5;
+}
+
+.doc-body p {
+  margin: 0 0 1.25rem;
+}
+
+.doc-body ul,
+.doc-body ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.doc-body li {
+  margin-bottom: 0.5rem;
+}
+
+.doc-body li:last-child { margin-bottom: 0; }
+
+.doc-body strong { color: var(--jhta-text-heading); }
 
 .doc-back { margin-top: 2rem; }
 
