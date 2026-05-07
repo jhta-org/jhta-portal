@@ -1615,6 +1615,57 @@ header.header {
 
 .doc-back { margin-top: 2rem; }
 
+/* News CTA box (e.g. link to a related document) */
+.news-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--jhta-bg-alt);
+  border: 1px solid var(--jhta-border);
+  border-left: 4px solid var(--jhta-navy);
+  border-radius: var(--jhta-radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0 2rem;
+}
+
+.news-cta-body { flex: 1; min-width: 0; }
+
+.news-cta-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--jhta-navy);
+  margin-bottom: 0.35rem;
+}
+
+.news-cta-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--jhta-text-heading);
+  margin-bottom: 0.25rem;
+}
+
+.news-cta-desc {
+  font-size: 0.9rem;
+  color: var(--jhta-text-light);
+  line-height: 1.6;
+}
+
+.news-cta-btn {
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .news-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .news-cta-btn {
+    text-align: center;
+  }
+}
+
 /* ============================================
    Contact Forms
    ============================================ */
