@@ -381,6 +381,23 @@ header.header {
   -webkit-text-stroke: 1px var(--jhta-border);
 }
 
+/* --- News Section page --- */
+.news-section { max-width: 960px; }
+.news-section .news-list { max-width: 100%; }
+
+.news-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0 0;
+}
+
+.news-pagination-info {
+  font-size: 0.9rem;
+  color: var(--jhta-text-light);
+}
+
 /* --- News List --- */
 .news-list {
   display: flex;

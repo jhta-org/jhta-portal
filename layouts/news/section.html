@@ -1,0 +1,39 @@
+{{ define "main" }}
+<section class="section">
+  <div class="section-inner news-section">
+    <nav class="breadcrumb">
+      <a href="/">ホーム</a> <span>/</span>
+      <span>お知らせ</span>
+    </nav>
+    <span class="section-label">News</span>
+    <h1 class="section-title">お知らせ</h1>
+    {{ if .Description }}
+    <p class="section-desc">{{ .Description }}</p>
+    {{ end }}
+
+    {{ $paginator := .Paginate (.Pages.ByDate.Reverse) }}
+
+    <div class="news-list">
+      {{ range $paginator.Pages }}
+      <a href="{{ .Permalink }}" class="news-item">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+        <span class="news-title">{{ .Title }}</span>
+        <svg class="news-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      {{ end }}
+    </div>
+
+    {{ if gt $paginator.TotalPages 1 }}
+    <nav class="news-pagination">
+      {{ if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" class="btn btn-ghost btn-sm">← 前のページ</a>
+      {{ end }}
+      <span class="news-pagination-info">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+      {{ if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" class="btn btn-ghost btn-sm">次のページ →</a>
+      {{ end }}
+    </nav>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
