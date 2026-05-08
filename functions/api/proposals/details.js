@@ -112,6 +112,7 @@ function buildDetailsMessage(id, proposal, detail) {
       },
       ...(detail.background ? [{ type: 'section', text: { type: 'mrkdwn', text: `*背景*\n${truncate(detail.background, 700)}` } }] : []),
       ...(detail.expected_effects ? [{ type: 'section', text: { type: 'mrkdwn', text: `*期待する効果*\n${truncate(detail.expected_effects, 700)}` } }] : []),
+      { type: 'section', text: { type: 'mrkdwn', text: `*🔧 管理画面で開く*\n<https://tech.j-hta.org/admin/proposals/${id}|https://tech.j-hta.org/admin/proposals/${id}>` } },
       { type: 'divider' },
       { type: 'context', elements: [{ type: 'mrkdwn', text: `JHTA Tech Portal › 課題提案フォーム（Step 2 詳細）` }] },
     ],
