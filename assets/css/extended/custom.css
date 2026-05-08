@@ -739,6 +739,22 @@ header.header {
   color: var(--jhta-gold);
 }
 
+.footer-admin-link {
+  display: inline-block;
+  margin-left: 1.25rem;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6) !important;
+  text-decoration: none;
+}
+
+.footer-admin-link:hover {
+  border-color: var(--jhta-gold);
+  color: var(--jhta-gold) !important;
+}
+
 /* Hide PaperMod's home-info on homepage since we use custom layout */
 .first-entry {
   display: none;

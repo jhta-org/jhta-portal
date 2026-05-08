@@ -12,8 +12,17 @@
     {{- with site.Params.footer.text }}
         {{ . | markdownify }}
     {{- end }}
+
+    <a href="/admin/proposals/" class="footer-admin-link" id="footer-admin-link" hidden>🔧 管理画面</a>
   </div>
 </footer>
+<script>
+  // /admin/* の Basic Auth を通過済みの場合に管理画面リンクを表示
+  if (document.cookie.split(';').some(c => c.trim().startsWith('jhta_admin='))) {
+    var el = document.getElementById('footer-admin-link');
+    if (el) el.hidden = false;
+  }
+</script>
 {{- end }}
 
 {{- if (not site.Params.disableScrollToTop) }}
