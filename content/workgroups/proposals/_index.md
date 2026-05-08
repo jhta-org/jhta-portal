@@ -74,6 +74,7 @@ ShowBreadCrumbs: true
         const id = body.id ? `（受付番号: <strong>${body.id}</strong>）` : '';
         msg.innerHTML = `✅ ご提案ありがとうございます。${id} 内容を確認の上、メールでご連絡いたします。`;
         msg.classList.add('form-message-success');
+        btn.textContent = '✓ 送信完了';
       } else {
         msg.textContent = '⚠️ 送信に失敗しました。しばらくしてからもう一度お試しください。';
         msg.classList.add('form-message-error');

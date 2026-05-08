@@ -129,6 +129,7 @@ hiddenInHomeList: true
         form.reset();
         msg.textContent = '✅ ご提供ありがとうございます。事務局で確認させていただきます。';
         msg.classList.add('form-message-success');
+        btn.textContent = '✓ 送信完了';
       } else {
         msg.textContent = body.error
           ? `⚠️ ${body.error}`
