@@ -47,7 +47,7 @@ export async function onRequestGet(context) {
         <dt>会社・所属</dt><dd>${esc(proposal.company)}</dd>
         <dt>メール</dt><dd><a href="mailto:${escAttr(proposal.email)}">${esc(proposal.email)}</a></dd>
         <dt>課題テーマ</dt><dd>${esc(proposal.theme)}</dd>
-        <dt>一言で課題</dt><dd>${nl2br(proposal.summary)}</dd>
+        <dt>課題</dt><dd>${nl2br(proposal.summary)}</dd>
       </dl>
     </section>
 

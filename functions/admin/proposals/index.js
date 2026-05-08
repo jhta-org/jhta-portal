@@ -82,7 +82,7 @@ export async function onRequestGet(context) {
         <label class="adm-label">会社・所属 <input class="adm-input" name="company" required></label>
         <label class="adm-label">メール <input class="adm-input" name="email" type="email" required></label>
         <label class="adm-label">課題テーマ <input class="adm-input" name="theme" required></label>
-        <label class="adm-label">一言で課題 <textarea class="adm-textarea" name="summary" rows="3" required></textarea></label>
+        <label class="adm-label">課題 <textarea class="adm-textarea" name="summary" rows="3" required></textarea></label>
         <label class="adm-label">事務局メモ（任意） <textarea class="adm-textarea" name="internal_notes" rows="2" placeholder="例：5月8日 ○○ホテル様より対面でヒアリング"></textarea></label>
         <div class="adm-modal-actions">
           <button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById('manual-modal').close()">キャンセル</button>

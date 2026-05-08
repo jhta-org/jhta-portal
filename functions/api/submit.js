@@ -115,7 +115,7 @@ function buildProposalMessage(d) {
         field('メールアドレス', d.email),
         field('課題テーマ', d.theme),
       ]),
-      section(`*一言で課題*\n${d.summary || '—'}`),
+      section(`*課題*\n${d.summary || '—'}`),
       ...(d.id ? [section(`*Step 2 詳細フォーム URL*\n\`https://tech.j-hta.org/workgroups/proposals/details/?id=${d.id}\``)] : []),
       divider(),
       context(`JHTA Tech Portal › 課題提案フォーム（Step 1）`),

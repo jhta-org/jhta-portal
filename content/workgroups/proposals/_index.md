@@ -38,8 +38,8 @@ ShowBreadCrumbs: true
   </div>
 
   <div class="form-group">
-    <label class="form-label" for="summary">一言で課題 <span class="form-required">*</span></label>
-    <textarea class="form-textarea" id="summary" name="summary" rows="4" maxlength="400" required placeholder="200字程度で、どのような場面でどんな問題があるかを簡潔にご記入ください。詳細は後ほど別フォームでお伺いします。"></textarea>
+    <label class="form-label" for="summary">課題 <span class="form-required">*</span></label>
+    <textarea class="form-textarea" id="summary" name="summary" rows="4" maxlength="400" required placeholder="どのような場面でどんな問題があるかを簡潔にご記入ください。詳細は後ほど別フォームでお伺いします。"></textarea>
   </div>
 
   <div id="form-message" class="form-message" hidden></div>
@@ -103,4 +103,4 @@ ShowBreadCrumbs: true
 ### 簡易フォームに書く内容
 
 - **どこで** どのような場面で問題が起きているか
-- **何が** 課題と感じているか（一言でOK）
+- **何が** 課題と感じているか

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS proposals (
   company         TEXT NOT NULL,                           -- 会社・所属
   email           TEXT NOT NULL,                           -- メール
   theme           TEXT NOT NULL,                           -- 課題テーマ
-  summary         TEXT NOT NULL,                           -- 一言で課題
+  summary         TEXT NOT NULL,                           -- 課題
   internal_notes  TEXT,                                    -- 事務局メモ
   status          TEXT NOT NULL DEFAULT '受付中',          -- 受付中 / 検討中 / 詳細送付済 / PreWG化 / クローズ
   created_at      TEXT NOT NULL DEFAULT (datetime('now', '+9 hours')),
