@@ -6,7 +6,7 @@
  *         stakeholders[], reference_urls, whitepaper_url, additional_notes }
  */
 export async function onRequestPost(context) {
-  const { request, env } = context;
+  const { request, env, waitUntil } = context;
 
   let data;
   try {
@@ -75,14 +75,19 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: 'Failed to save details' }, 500);
   }
 
-  // Slack 通知
+  // Slack 通知（waitUntil でレスポンス返却後も完了を保証）
   if (env.SLACK_WEBHOOK_URL) {
     const msg = buildDetailsMessage(id, proposal, detail);
-    fetch(env.SLACK_WEBHOOK_URL, {
+    const slackPromise = fetch(env.SLACK_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(msg),
     }).catch(err => console.error('Slack notify error:', err));
+    if (typeof waitUntil === 'function') {
+      waitUntil(slackPromise);
+    } else {
+      await slackPromise;
+    }
   }
 
   return jsonResponse({ ok: true }, 200);
