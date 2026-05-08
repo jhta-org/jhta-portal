@@ -1,6 +1,7 @@
 /**
  * POST /api/submit
  * Handles contact form submissions and sends Slack notifications.
+ * For form_type=proposal, also persists Step 1 data to D1 and returns the receipt id.
  */
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -34,8 +35,17 @@ export async function onRequestPost(context) {
   }
 
   let slackPayload;
+  let extraResponse = {};
   switch (data.form_type) {
     case 'proposal':
+      try {
+        const id = await createProposalStep1(env.DB, data);
+        data.id = id;
+        extraResponse.id = id;
+      } catch (err) {
+        console.error('D1 insert error:', err);
+        return jsonResponse({ error: 'Failed to save proposal' }, 500);
+      }
       slackPayload = buildProposalMessage(data);
       break;
     case 'pre-wg':
@@ -56,33 +66,59 @@ export async function onRequestPost(context) {
     });
     if (!slackRes.ok) {
       console.error('Slack error:', slackRes.status, await slackRes.text());
-      return jsonResponse({ error: 'Failed to send notification' }, 502);
+      // 通知失敗してもDB登録済みならOKとする（後で再通知可能）
     }
   } catch (err) {
     console.error('Fetch error:', err);
-    return jsonResponse({ error: 'Network error' }, 502);
   }
 
-  return jsonResponse({ ok: true }, 200);
+  return jsonResponse({ ok: true, ...extraResponse }, 200);
+}
+
+// ── D1 helpers ────────────────────────────────────────────────────────────────
+
+async function generateProposalId(db) {
+  const year = new Date().getUTCFullYear();
+  await db.prepare('INSERT OR IGNORE INTO proposal_counter (year, last_seq) VALUES (?, 0)')
+    .bind(year).run();
+  const row = await db.prepare(
+    'UPDATE proposal_counter SET last_seq = last_seq + 1 WHERE year = ? RETURNING last_seq'
+  ).bind(year).first();
+  const seq = String(row.last_seq).padStart(4, '0');
+  return `JHTA-${year}-${seq}`;
+}
+
+async function createProposalStep1(db, data) {
+  if (!db) throw new Error('D1 binding "DB" not available');
+  const required = ['name', 'company', 'email', 'theme', 'summary'];
+  for (const k of required) {
+    if (!data[k]) throw new Error(`missing field: ${k}`);
+  }
+  const id = await generateProposalId(db);
+  await db.prepare(
+    `INSERT INTO proposals (id, source, name, company, email, theme, summary)
+     VALUES (?, 'form', ?, ?, ?, ?, ?)`
+  ).bind(id, data.name, data.company, data.email, data.theme, data.summary).run();
+  return id;
 }
 
 // ── Slack message builders ────────────────────────────────────────────────────
 
 function buildProposalMessage(d) {
   return {
-    text: '📬 新しい課題提案が届きました',
+    text: `📬 新しい課題提案が届きました${d.id ? `（${d.id}）` : ''}`,
     blocks: [
-      header('📬 新しい課題提案'),
+      header(`📬 新しい課題提案${d.id ? `  ${d.id}` : ''}`),
       fields([
         field('氏名', d.name),
-        field('会社名', d.company),
+        field('会社・所属', d.company),
         field('メールアドレス', d.email),
         field('課題テーマ', d.theme),
       ]),
-      section(`*課題の概要*\n${d.description}`),
-      ...(d.reference ? [section(`*参考URL*\n${d.reference}`)] : []),
+      section(`*一言で課題*\n${d.summary || '—'}`),
+      ...(d.id ? [section(`*Step 2 詳細フォーム URL*\n\`https://tech.j-hta.org/workgroups/proposals/details/?id=${d.id}\``)] : []),
       divider(),
-      context(`JHTA Tech Portal › 課題提案フォーム`),
+      context(`JHTA Tech Portal › 課題提案フォーム（Step 1）`),
     ],
   };
 }

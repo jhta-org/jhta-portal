@@ -1782,3 +1782,33 @@ header.header {
   color: #991b1b;
   border: 1px solid #fecaca;
 }
+
+.form-hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--jhta-text-light);
+}
+
+.form-radio-group,
+.form-check-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.form-radio,
+.form-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+  color: var(--jhta-text);
+  cursor: pointer;
+}
+
+.form-radio input,
+.form-check input {
+  margin: 0;
+}

@@ -8,9 +8,9 @@ ShowBreadCrumbs: true
 
 ## 業界課題を提案する
 
-ホスピタリティ業界で感じるDX課題を自由にご提案ください。提案内容は協会で検討し、プレワーキンググループとして立ち上げるかを判断します。
+ホスピタリティ業界の DX 推進に向けて、課題やテーマをご提案ください。**まずは概要のみご記入いただく簡易フォーム**です。事務局で内容を確認の上、必要に応じて詳細記入用フォームのご案内をメールでお送りします。
 
-<span class="wg-badge badge-open">誰でも投稿可能</span>
+<span class="wg-badge badge-open">どなたでも投稿可能</span>
 
 ---
 
@@ -23,8 +23,8 @@ ShowBreadCrumbs: true
   </div>
 
   <div class="form-group">
-    <label class="form-label" for="company">会社名 <span class="form-required">*</span></label>
-    <input class="form-input" type="text" id="company" name="company" required placeholder="株式会社〇〇">
+    <label class="form-label" for="company">会社・所属 <span class="form-required">*</span></label>
+    <input class="form-input" type="text" id="company" name="company" required placeholder="株式会社〇〇／〇〇ホテル">
   </div>
 
   <div class="form-group">
@@ -38,13 +38,8 @@ ShowBreadCrumbs: true
   </div>
 
   <div class="form-group">
-    <label class="form-label" for="description">課題の概要 <span class="form-required">*</span></label>
-    <textarea class="form-textarea" id="description" name="description" rows="5" required placeholder="どのような場面で、どのような問題が発生しているかをご記入ください。"></textarea>
-  </div>
-
-  <div class="form-group">
-    <label class="form-label" for="reference">参考URL（任意）</label>
-    <input class="form-input" type="url" id="reference" name="reference" placeholder="https://...">
+    <label class="form-label" for="summary">一言で課題 <span class="form-required">*</span></label>
+    <textarea class="form-textarea" id="summary" name="summary" rows="4" maxlength="400" required placeholder="200字程度で、どのような場面でどんな問題があるかを簡潔にご記入ください。詳細は後ほど別フォームでお伺いします。"></textarea>
   </div>
 
   <div id="form-message" class="form-message" hidden></div>
@@ -73,9 +68,11 @@ ShowBreadCrumbs: true
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+      const body = await res.json().catch(() => ({}));
       if (res.ok) {
         form.reset();
-        msg.textContent = '✅ ご提案ありがとうございます。内容を確認の上、ご連絡いたします。';
+        const id = body.id ? `（受付番号: <strong>${body.id}</strong>）` : '';
+        msg.innerHTML = `✅ ご提案ありがとうございます。${id} 内容を確認の上、メールでご連絡いたします。`;
         msg.classList.add('form-message-success');
       } else {
         msg.textContent = '⚠️ 送信に失敗しました。しばらくしてからもう一度お試しください。';
@@ -96,8 +93,14 @@ ShowBreadCrumbs: true
 
 ---
 
-### 提案のポイント
+### 進め方の流れ
 
-- **具体的な課題** - どのような場面で、どのような問題が発生しているか
-- **影響範囲** - 業界全体に共通する課題か、特定の領域の課題か
-- **期待する成果** - 標準仕様、ガイドライン、ツールなど、どのような解決を期待するか
+1. **提案** — このフォームから簡易にご提案
+2. **JHTA事務局で調整・判断** — 内容を確認し、ご連絡
+3. **詳細記入フォームのご案内** — 進める案件は詳細フォーム（別URL）をメールでお送りします
+4. **PreWG・正式WG化の検討** — 詳細をもとにECで検討、必要に応じてPreWG／WG立ち上げへ
+
+### 簡易フォームに書く内容
+
+- **どこで** どのような場面で問題が起きているか
+- **何が** 課題と感じているか（一言でOK）
