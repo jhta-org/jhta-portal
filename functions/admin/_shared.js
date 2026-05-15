@@ -1,5 +1,5 @@
 /**
- * 管理画面共通ヘルパー（HTMLレンダ／エスケープ／ステータス）
+ * 管理画面共通ヘルパー（HTMLレンダ／エスケープ／ステータス／フォーマッタ）
  */
 
 export function statuses() {
@@ -15,6 +15,28 @@ export function statusBadge(s) {
     'クローズ': 'adm-status-closed',
   }[s] || 'adm-status-default';
   return `<span class="adm-status ${cls}">${esc(s || '—')}</span>`;
+}
+
+export function newsletterStatusBadge(s) {
+  const cls = {
+    'draft': 'adm-status-draft',
+    'scheduled': 'adm-status-scheduled',
+    'published': 'adm-status-published',
+  }[s] || 'adm-status-default';
+  const label = { draft: '下書き', scheduled: '公開予約', published: '公開済' }[s] || s;
+  return `<span class="adm-status ${cls}">${esc(label)}</span>`;
+}
+
+export function visibilityBadge(v) {
+  const cls = v === 'members' ? 'adm-vis-members' : 'adm-vis-public';
+  const label = v === 'members' ? '🔒 会員限定' : '公開';
+  return `<span class="adm-vis ${cls}">${esc(label)}</span>`;
+}
+
+export function memberStatusBadge(s) {
+  const cls = s === 'active' ? 'adm-status-prewg' : 'adm-status-closed';
+  const label = s === 'active' ? 'アクティブ' : '無効';
+  return `<span class="adm-status ${cls}">${esc(label)}</span>`;
 }
 
 export function esc(s) {
@@ -35,7 +57,17 @@ export function nl2br(s) {
   return esc(s).replace(/\r?\n/g, '<br>');
 }
 
-export function renderShell({ title, body }) {
+const NAV_ITEMS = [
+  { key: 'proposals',   label: '提案管理',         href: '/admin/proposals/' },
+  { key: 'members',     label: '会員管理',         href: '/admin/members/' },
+  { key: 'newsletters', label: 'バックナンバー管理', href: '/admin/newsletters/' },
+];
+
+export function renderShell({ title, body, activeNav }) {
+  const nav = NAV_ITEMS.map(item => {
+    const active = item.key === activeNav ? ' adm-nav-active' : '';
+    return `<a href="${item.href}" class="adm-nav-item${active}">${esc(item.label)}</a>`;
+  }).join('');
   return `<!doctype html>
 <html lang="ja">
 <head>
@@ -49,9 +81,7 @@ export function renderShell({ title, body }) {
 <header class="adm-header">
   <div class="adm-header-inner">
     <a class="adm-brand" href="/admin/proposals/">JHTA Admin</a>
-    <nav class="adm-nav">
-      <a href="/admin/proposals/">提案管理</a>
-    </nav>
+    <nav class="adm-nav">${nav}</nav>
     <a class="adm-back" href="/" target="_blank" rel="noopener">公開サイトを開く ↗</a>
   </div>
 </header>
@@ -105,10 +135,20 @@ body {
   text-decoration: none;
   letter-spacing: 0.02em;
 }
-.adm-nav { flex: 1; display: flex; gap: 1rem; }
-.adm-nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; }
-.adm-nav a:hover { color: #fff; }
-.adm-back { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; }
+.adm-nav { flex: 1; display: flex; gap: 1.5rem; }
+.adm-nav-item {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.4rem 0;
+  border-bottom: 2px solid transparent;
+}
+.adm-nav-item:hover { color: #fff; }
+.adm-nav-active {
+  color: #fff !important;
+  border-bottom-color: var(--adm-gold);
+}
+.adm-back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; }
 .adm-back:hover { color: #fff; }
 .adm-main {
   max-width: 1280px;
@@ -151,6 +191,7 @@ body {
   color: #fff;
   border-color: var(--adm-navy);
 }
+.adm-toolbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .adm-table-wrap { overflow-x: auto; }
 .adm-table {
   width: 100%;
@@ -173,7 +214,8 @@ body {
   border-bottom: 1.5px solid var(--adm-border);
 }
 .adm-table tr:hover td { background: #fafbfc; }
-.adm-link { color: var(--adm-navy); text-decoration: none; font-weight: 600; font-family: 'SF Mono', Menlo, monospace; }
+.adm-link { color: var(--adm-navy); text-decoration: none; font-weight: 600; }
+.adm-link-mono { font-family: 'SF Mono', Menlo, monospace; }
 .adm-link:hover { text-decoration: underline; }
 .adm-empty { text-align: center; padding: 3rem; color: var(--adm-text-light); }
 .adm-date { white-space: nowrap; color: var(--adm-text-light); font-size: 0.82rem; }
@@ -199,7 +241,20 @@ body {
 .adm-status-sent { background: #ede9fe; color: #5b21b6; }
 .adm-status-prewg { background: #d1fae5; color: #065f46; }
 .adm-status-closed { background: #e5e7eb; color: #374151; }
+.adm-status-draft { background: #f3f4f6; color: #6b7280; }
+.adm-status-scheduled { background: #fef3c7; color: #92400e; }
+.adm-status-published { background: #d1fae5; color: #065f46; }
 .adm-status-default { background: var(--adm-bg); color: var(--adm-text-light); }
+.adm-vis {
+  display: inline-block;
+  padding: 0.22rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.adm-vis-public { background: #ede9fe; color: #5b21b6; }
+.adm-vis-members { background: #fef3c7; color: #854d0e; }
 .adm-select-sm {
   padding: 0.3rem 0.5rem;
   border: 1px solid var(--adm-border);
@@ -227,6 +282,8 @@ body {
 .btn-ghost { background: transparent; color: var(--adm-text); border-color: var(--adm-border); }
 .btn-ghost:hover { border-color: var(--adm-navy); color: var(--adm-navy); }
 .btn-gold { background: var(--adm-gold); color: #fff; border-color: var(--adm-gold); }
+.btn-danger { background: transparent; color: #b91c1c; border-color: #fecaca; }
+.btn-danger:hover { background: #fef2f2; }
 .adm-flash {
   background: #ecfdf5;
   border: 1px solid #a7f3d0;
@@ -237,6 +294,11 @@ body {
   font-size: 0.9rem;
   word-break: break-all;
 }
+.adm-flash-error {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
 .adm-modal {
   border: none;
   border-radius: var(--adm-radius);
@@ -246,6 +308,7 @@ body {
   background: #fff;
   box-shadow: 0 20px 50px rgba(0,0,0,0.15);
 }
+.adm-modal-wide { max-width: 720px; }
 .adm-modal::backdrop { background: rgba(0,0,0,0.4); }
 .adm-form { padding: 1.5rem; }
 .adm-modal-title { margin: 0 0 0.4rem; font-size: 1.2rem; color: var(--adm-text-heading); }
@@ -257,7 +320,7 @@ body {
   color: var(--adm-text-heading);
   font-weight: 600;
 }
-.adm-input, .adm-textarea {
+.adm-input, .adm-textarea, .adm-select {
   display: block;
   width: 100%;
   margin-top: 0.3rem;
@@ -268,12 +331,28 @@ body {
   font-family: inherit;
   font-weight: normal;
   color: var(--adm-text);
+  background: #fff;
 }
 .adm-textarea { resize: vertical; min-height: 60px; }
-.adm-input:focus, .adm-textarea:focus {
+.adm-textarea-large { min-height: 320px; font-family: 'SF Mono', Menlo, monospace; font-size: 0.88rem; line-height: 1.6; }
+.adm-input:focus, .adm-textarea:focus, .adm-select:focus {
   outline: none;
   border-color: var(--adm-navy);
   box-shadow: 0 0 0 3px rgba(27,45,91,0.1);
+}
+.adm-radio-group, .adm-check-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.3rem;
+}
+.adm-radio, .adm-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: normal;
+  font-size: 0.92rem;
+  cursor: pointer;
 }
 .adm-modal-actions {
   display: flex;
@@ -351,4 +430,46 @@ body {
   margin: 0.15rem 0.25rem 0.15rem 0;
 }
 .adm-no-data { color: var(--adm-text-light); font-style: italic; }
+.adm-stat-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.adm-stat {
+  flex: 1;
+  min-width: 140px;
+  background: #fff;
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius);
+  padding: 0.9rem 1.1rem;
+}
+.adm-stat-label {
+  font-size: 0.78rem;
+  color: var(--adm-text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.adm-stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--adm-text-heading);
+  margin-top: 0.2rem;
+}
+
+/* Newsletter content preview */
+.adm-md-preview {
+  background: var(--adm-bg);
+  border: 1px solid var(--adm-border);
+  border-radius: var(--adm-radius);
+  padding: 1rem 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.adm-md-preview h2 { font-size: 1.05rem; margin: 1.1rem 0 0.5rem; color: var(--adm-text-heading); }
+.adm-md-preview h3 { font-size: 0.98rem; margin: 0.9rem 0 0.4rem; }
+.adm-md-preview p { margin: 0 0 0.75rem; }
+.adm-md-preview ul, .adm-md-preview ol { margin: 0 0 0.85rem; padding-left: 1.5rem; }
+.adm-md-preview li { margin-bottom: 0.25rem; }
 `;

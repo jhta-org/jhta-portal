@@ -3,7 +3,7 @@
  * GET: 詳細表示
  * POST: _action = 'update_status' | 'update_notes' で分岐
  */
-import { renderShell, esc, escAttr, nl2br, statuses, statusBadge } from './_shared.js';
+import { renderShell, esc, escAttr, nl2br, statuses, statusBadge } from '../_shared.js';
 
 const STATUSES = statuses();
 
@@ -20,6 +20,7 @@ export async function onRequestGet(context) {
   if (!proposal) {
     return new Response(renderShell({
       title: '提案が見つかりません',
+      activeNav: 'proposals',
       body: `<p class="adm-no-data">受付番号 ${esc(id)} は存在しません。</p>
              <p><a class="btn btn-ghost btn-sm" href="/admin/proposals/">← 一覧に戻る</a></p>`,
     }), { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
@@ -90,7 +91,7 @@ export async function onRequestGet(context) {
     `}
   `;
 
-  return new Response(renderShell({ title: `提案 ${proposal.id}`, body }), {
+  return new Response(renderShell({ title: `提案 ${proposal.id}`, body, activeNav: 'proposals' }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
 }

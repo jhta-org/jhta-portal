@@ -3,7 +3,7 @@
  * GET:   HTMLレンダ
  * POST:  _action = 'create_manual' | 'update_status' で分岐 → 同じURLにリダイレクト
  */
-import { renderShell, esc, escAttr, statuses, statusBadge } from './_shared.js';
+import { renderShell, esc, escAttr, statuses, statusBadge } from '../_shared.js';
 
 const STATUSES = statuses();
 
@@ -92,7 +92,7 @@ export async function onRequestGet(context) {
     </dialog>
   `;
 
-  return new Response(renderShell({ title: '提案管理', body }), {
+  return new Response(renderShell({ title: '提案管理', body, activeNav: 'proposals' }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
 }
