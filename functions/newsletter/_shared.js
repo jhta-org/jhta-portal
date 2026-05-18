@@ -271,12 +271,24 @@ a { color: var(--jhta-navy); }
   font-size: 0.85rem;
   color: var(--jhta-text-light);
   min-width: 95px;
+  align-self: flex-start;
+  margin-top: 0.18rem;
+}
+.nl-item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 .nl-item-title {
-  flex: 1;
   font-size: 1rem;
   font-weight: 600;
   color: var(--jhta-text-heading);
+  line-height: 1.5;
+}
+.nl-item-subtitle {
+  font-size: 0.78rem;
+  color: var(--jhta-text-light);
 }
 .nl-item:hover .nl-item-title { color: var(--jhta-navy); }
 .nl-badge {

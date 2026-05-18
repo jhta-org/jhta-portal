@@ -23,13 +23,25 @@ export async function onRequestGet(context) {
      LIMIT 100`
   ).all();
 
+  // タイトルから号番号だけ抜く（例: 【…】No.25012 → No.25012）
+  const issueNo = (title) => {
+    if (!title) return '';
+    const m = title.match(/No\.\s*[\d-]+/);
+    return m ? m[0] : '';
+  };
+
   const items = results.map(r => {
     const date = (r.published_at || '').slice(0, 10).replace(/-/g, '.');
     const badge = r.visibility === 'members' ? `<span class="nl-badge">🔒 会員限定</span>` : '';
+    const headline = r.summary || r.title;
+    const subhead = r.summary ? issueNo(r.title) : '';
     return `
       <a href="/newsletter/${escAttr(r.slug)}" class="nl-item">
         <time datetime="${escAttr((r.published_at || '').slice(0, 10))}">${esc(date)}</time>
-        <span class="nl-item-title">${esc(r.title)}${badge}</span>
+        <span class="nl-item-body">
+          <span class="nl-item-title">${esc(headline)}${badge}</span>
+          ${subhead ? `<span class="nl-item-subtitle">${esc(subhead)}</span>` : ''}
+        </span>
       </a>
     `;
   }).join('') || '<div class="section-empty">まだ公開されているバックナンバーはありません</div>';
