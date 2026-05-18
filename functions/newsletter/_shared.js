@@ -55,10 +55,18 @@ function escBlock(s) {
 }
 
 function inline(text) {
+  // ![alt](src) — 画像（リンクより先）
+  text = text.replace(/!\[([^\]]*?)\]\(([^)]+?)\)/g, (m, alt, src) => {
+    const safeSrc = String(src).replace(/[<>"']/g, '');
+    const safeAlt = String(alt).replace(/[<>"']/g, '');
+    return `<img src="${safeSrc}" alt="${safeAlt}" loading="lazy">`;
+  });
   // **bold**
   text = text.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>');
   // *italic*
   text = text.replace(/(^|[^*])\*([^*]+?)\*(?!\*)/g, '$1<em>$2</em>');
+  // _italic_ — 単語の途中（snake_case）は無視
+  text = text.replace(/(^|[^A-Za-z0-9_])_([^_\n]+?)_(?![A-Za-z0-9_])/g, '$1<em>$2</em>');
   // [text](url)
   text = text.replace(/\[([^\]]+?)\]\(([^)]+?)\)/g, (m, t, u) => {
     const safe = String(u).replace(/[<>"']/g, '');
@@ -287,6 +295,15 @@ a { color: var(--jhta-navy); }
 .nl-body ul, .nl-body ol { margin: 0 0 1.3rem; padding-left: 1.4rem; }
 .nl-body li { margin-bottom: 0.4rem; }
 .nl-body strong { color: var(--jhta-text-heading); }
+.nl-body em { color: var(--jhta-text-light); font-style: normal; font-size: 0.92rem; }
+.nl-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.2rem auto;
+  border-radius: 6px;
+  border: 1px solid var(--jhta-border-light);
+}
 .nl-gate {
   margin: 2rem 0;
   padding: 1.75rem 1.75rem 1.5rem;
