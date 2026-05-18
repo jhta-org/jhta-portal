@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
   const where = whereParts.length ? 'WHERE ' + whereParts.join(' AND ') : '';
 
   const { results } = await env.DB.prepare(
-    `SELECT id, slug, title, visibility, status, published_at, created_at, updated_at
+    `SELECT id, slug, title, summary, visibility, status, published_at, created_at, updated_at
      FROM newsletters ${where}
      ORDER BY COALESCE(published_at, updated_at) DESC, id DESC
      LIMIT 500`
@@ -62,16 +62,30 @@ export async function onRequestGet(context) {
     return `<a class="adm-chip${active}" href="?${params.toString()}">${esc(label)}</a>`;
   }).join('');
 
-  const rows = results.map(r => `
-    <tr>
-      <td>${esc(r.id)}</td>
-      <td><a href="/admin/newsletters/${r.id}" class="adm-link">${esc(r.title || '(無題)')}</a></td>
-      <td>${visibilityBadge(r.visibility)}</td>
-      <td>${newsletterStatusBadge(r.status)}</td>
-      <td class="adm-date">${esc(r.published_at || '—')}</td>
-      <td class="adm-date">${esc(r.updated_at)}</td>
-    </tr>
-  `).join('') || '<tr><td colspan="6" class="adm-empty">該当するバックナンバーはありません</td></tr>';
+  // タイトルから号番号だけ抽出（例: 「【…】No.25012」 → 「No.25012」）
+  const issueNo = (t) => {
+    if (!t) return '';
+    const m = t.match(/No\.\s*[\d-]+/);
+    return m ? m[0] : '';
+  };
+
+  const rows = results.map(r => {
+    const headline = r.summary || r.title || '(無題)';
+    const subhead = r.summary ? issueNo(r.title) : '';
+    return `
+      <tr>
+        <td>${esc(r.id)}</td>
+        <td>
+          <a href="/admin/newsletters/${r.id}" class="adm-link">${esc(headline)}</a>
+          ${subhead ? `<div style="font-size:0.78rem;color:var(--adm-text-light);margin-top:0.15rem">${esc(subhead)}</div>` : ''}
+        </td>
+        <td>${visibilityBadge(r.visibility)}</td>
+        <td>${newsletterStatusBadge(r.status)}</td>
+        <td class="adm-date">${esc(r.published_at || '—')}</td>
+        <td class="adm-date">${esc(r.updated_at)}</td>
+      </tr>
+    `;
+  }).join('') || '<tr><td colspan="6" class="adm-empty">該当するバックナンバーはありません</td></tr>';
 
   const body = `
     ${flash ? `<div class="adm-flash">${esc(flash)}</div>` : ''}
@@ -114,7 +128,7 @@ export async function onRequestGet(context) {
         <table class="adm-table">
           <thead>
             <tr>
-              <th>ID</th><th>タイトル</th><th>公開範囲</th><th>状態</th><th>公開日時</th><th>最終更新</th>
+              <th style="width:60px">ID</th><th>タイトル／号</th><th>公開範囲</th><th>状態</th><th>公開日時</th><th>最終更新</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
