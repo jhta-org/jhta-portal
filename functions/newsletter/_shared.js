@@ -114,6 +114,11 @@ ${description ? `<meta name="description" content="${escAttr(description)}">` : 
         <span class="logo-text">JHTA Tech Portal</span>
       </a>
     </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開閉" aria-expanded="false" aria-controls="menu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
     <ul id="menu">
       <li><a href="/about/"><span>概要</span></a></li>
       <li><a href="/workgroups/"><span>ワーキンググループ</span></a></li>
@@ -124,6 +129,25 @@ ${description ? `<meta name="description" content="${escAttr(description)}">` : 
     </ul>
   </nav>
 </header>
+<script>
+(function() {
+  var btn = document.getElementById('nav-toggle');
+  var menu = document.getElementById('menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    var open = menu.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.classList.toggle('is-open', open);
+  });
+  menu.addEventListener('click', function(e) {
+    if (e.target.closest('a')) {
+      menu.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.classList.remove('is-open');
+    }
+  });
+})();
+</script>
 <main class="main">
   <section class="section">
     <div class="section-inner">
@@ -278,11 +302,57 @@ main.main { display: block; }
 }
 .footer a { color: rgba(255,255,255,0.65); }
 .footer a:hover { color: var(--jhta-gold); }
+/* Hamburger toggle */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle.is-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 @media (max-width: 720px) {
-  .nav { padding: 0.55rem 1rem; gap: 1rem; }
-  #menu { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  #menu a { padding: 0.45rem 0.7rem; font-size: 0.85rem; }
+  header.header { position: relative; }
+  .nav { flex-wrap: nowrap; padding: 0.6rem 1rem; }
   .logo-text { display: none; }
+  .nav-toggle { display: flex; }
+  #menu {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--jhta-navy-dark);
+    flex-direction: column;
+    padding: 0.5rem 0;
+    z-index: 50;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  #menu.nav-open { display: flex; }
+  #menu li { display: block; width: 100%; }
+  #menu a {
+    display: block;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0;
+  }
+  #menu a:hover { background: var(--jhta-navy-light); }
 }
 .footer-admin-link {
   display: inline-block;

@@ -6,6 +6,11 @@
                 <span class="logo-text">JHTA Tech Portal</span>
             </a>
         </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開閉" aria-expanded="false" aria-controls="menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
         {{- $currentPage := . }}
         <ul id="menu">
             {{- range site.Menus.main }}
@@ -34,3 +39,23 @@
         </ul>
     </nav>
 </header>
+<script>
+(function() {
+  var btn = document.getElementById('nav-toggle');
+  var menu = document.getElementById('menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function() {
+    var open = menu.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.classList.toggle('is-open', open);
+  });
+  // メニュー項目をクリックしたら閉じる
+  menu.addEventListener('click', function(e) {
+    if (e.target.closest('a')) {
+      menu.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.classList.remove('is-open');
+    }
+  });
+})();
+</script>
