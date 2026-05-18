@@ -1301,44 +1301,6 @@ header.header {
   }
 }
 
-/* Mobile: stack nav into two rows so all menu items remain reachable */
-@media (max-width: 720px) {
-  .nav {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-    padding: 0.6rem 1rem;
-  }
-  .logo {
-    display: flex;
-    justify-content: center;
-  }
-  .logo-text {
-    display: inline; /* show text again on mobile, since menu has its own row */
-    font-size: 0.95rem;
-  }
-  #menu {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    margin: 0 -1rem; /* extend to viewport edges so first/last items can scroll */
-    padding: 0 1rem;
-  }
-  #menu::-webkit-scrollbar {
-    display: none;
-  }
-  #menu li {
-    flex-shrink: 0;
-  }
-  #menu a {
-    padding: 0.5rem 0.85rem;
-    font-size: 0.85rem;
-  }
-}
-
 @media (max-width: 968px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
