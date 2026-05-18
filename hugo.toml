@@ -52,6 +52,11 @@ theme = 'PaperMod'
     url = '/news/'
     weight = 30
   [[menu.main]]
+    identifier = 'newsletter'
+    name = 'ニュースレター'
+    url = '/newsletter/'
+    weight = 35
+  [[menu.main]]
     identifier = 'official'
     name = '公式サイト'
     url = 'https://j-hta.org/'
