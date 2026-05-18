@@ -199,6 +199,7 @@ a { color: var(--jhta-navy); }
   margin: 0 auto;
   padding: 2.5rem 1.5rem 4rem;
 }
+.site-main:has(.nl-layout) { max-width: 1100px; }
 .site-footer {
   background: var(--jhta-navy-dark);
   color: rgba(255,255,255,0.5);
@@ -391,5 +392,163 @@ a { color: var(--jhta-navy); }
   text-align: center;
   color: var(--jhta-text-light);
   padding: 3rem 1rem;
+}
+
+/* Newsletter layout (sidebar + main) */
+.nl-layout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+.nl-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 1rem;
+}
+.nl-main { flex: 1; min-width: 0; }
+.nl-arch-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--jhta-text-light);
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--jhta-border);
+}
+.nl-arch-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.88rem;
+}
+.nl-arch-all,
+.nl-arch-month {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--jhta-text);
+}
+.nl-arch-all:hover,
+.nl-arch-month:hover {
+  background: var(--jhta-bg-alt);
+  color: var(--jhta-navy);
+}
+.nl-arch-active {
+  background: var(--jhta-navy) !important;
+  color: #fff !important;
+}
+.nl-arch-active .nl-arch-count {
+  background: rgba(255,255,255,0.2) !important;
+  color: #fff !important;
+}
+.nl-arch-year-group { margin: 0.85rem 0 0.4rem; }
+.nl-arch-year {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0.6rem;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--jhta-text-heading);
+}
+.nl-arch-month-list {
+  list-style: none;
+  padding: 0 0 0 0.7rem;
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+}
+.nl-arch-month-list li { margin: 0.08rem 0; }
+.nl-arch-count {
+  display: inline-block;
+  min-width: 1.8rem;
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--jhta-text-light);
+  background: var(--jhta-bg-alt);
+  padding: 0.05rem 0.45rem;
+  border-radius: 10px;
+}
+
+/* Pagination */
+.nl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--jhta-border);
+}
+.nl-page-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--jhta-border);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: var(--jhta-navy);
+  background: #fff;
+}
+.nl-page-btn:hover {
+  border-color: var(--jhta-navy);
+  background: var(--jhta-bg-alt);
+}
+.nl-page-disabled {
+  color: var(--jhta-text-light);
+  background: var(--jhta-bg-alt);
+  cursor: default;
+}
+.nl-page-info {
+  font-size: 0.85rem;
+  color: var(--jhta-text-light);
+}
+
+/* Active filter notice */
+.nl-filter-active {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(196,154,60,0.08);
+  border: 1px solid rgba(196,154,60,0.3);
+  padding: 0.6rem 0.95rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+.nl-filter-clear {
+  font-size: 0.82rem;
+  color: var(--jhta-text-light);
+  text-decoration: none;
+}
+.nl-filter-clear:hover { color: var(--jhta-navy); }
+
+@media (max-width: 760px) {
+  .nl-layout { flex-direction: column; gap: 1.5rem; }
+  .nl-sidebar { width: 100%; position: static; }
+  .nl-arch-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .nl-arch-year-group {
+    margin: 0;
+    width: 100%;
+  }
+  .nl-arch-month-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0.5rem;
+  }
+  .nl-arch-month-list li { flex: 0 0 auto; }
+  .nl-arch-all, .nl-arch-month {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.82rem;
+  }
 }
 `;
