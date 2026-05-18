@@ -76,12 +76,22 @@ function inline(text) {
 }
 
 /**
- * 会員限定記事のティザー：最初の N ブロック（段落／見出し／リスト）を返す
+ * 会員限定記事のティザー：概ね本文の半分（最低3／最大8ブロック）を返す。
+ * 文末の出典・注釈ブロック（"_出典：_" や "（注）"）は前段カウントから除外し、
+ * 「実本文の中盤」でゲートがかかるようにする。
  */
-export function getTeaser(md, n = 2) {
+export function getTeaser(md) {
   if (!md) return '';
-  const blocks = md.replace(/\r\n?/g, '\n').split(/\n\s*\n/);
-  return blocks.slice(0, n).join('\n\n');
+  const allBlocks = md.replace(/\r\n?/g, '\n').split(/\n\s*\n/).filter(b => b.trim());
+  // クロージング系を除外して「実本文ブロック数」を見積もる
+  const isClosing = (b) => /^_?出典/.test(b.trim()) || /^_?（注）/.test(b.trim()) || /^_?Note[:：]/i.test(b.trim());
+  let bodyEnd = allBlocks.length;
+  for (let i = 0; i < allBlocks.length; i++) {
+    if (isClosing(allBlocks[i])) { bodyEnd = i; break; }
+  }
+  const bodyCount = bodyEnd;
+  const n = Math.min(8, Math.max(3, Math.ceil(bodyCount / 2)));
+  return allBlocks.slice(0, n).join('\n\n');
 }
 
 export function renderShell({ title, description, body, breadcrumb }) {

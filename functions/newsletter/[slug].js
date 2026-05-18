@@ -39,7 +39,7 @@ export async function onRequestGet(context) {
 
   const renderedBody = fullAccess
     ? md2html(n.body)
-    : md2html(getTeaser(n.body, 2)) + renderGate();
+    : md2html(getTeaser(n.body)) + renderGate();
 
   const date = (n.published_at || '').slice(0, 10);
   const badge = n.visibility === 'members' ? `<span class="nl-badge">🔒 会員限定</span>` : '';
