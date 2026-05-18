@@ -43,7 +43,6 @@ export async function onRequestGet(context) {
     <section class="adm-card">
       <h2 class="adm-card-title">編集</h2>
       <form method="POST">
-        <input type="hidden" name="_action" value="save">
         <label class="adm-label">タイトル
           <input class="adm-input" name="title" value="${escAttr(n.title)}" required>
         </label>
@@ -72,14 +71,14 @@ export async function onRequestGet(context) {
 
         <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between">
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-            <button type="submit" class="btn btn-ghost btn-sm">下書き保存</button>
+            <button type="submit" name="_action" value="save" class="btn btn-ghost btn-sm">下書き保存</button>
             ${n.status !== 'published' ? `
               <button type="submit" name="_action" value="publish" class="btn btn-navy btn-sm" onclick="return confirm('このバックナンバーを公開しますか？')">公開する</button>
             ` : `
               <button type="submit" name="_action" value="unpublish" class="btn btn-ghost btn-sm" onclick="return confirm('公開を取り下げ下書きに戻しますか？')">公開取り下げ</button>
             `}
           </div>
-          <button type="submit" name="_action" value="delete" class="btn btn-danger btn-sm" onclick="return confirm('このバックナンバーを完全に削除しますか？復元できません。')">削除</button>
+          <button type="submit" name="_action" value="delete" formnovalidate class="btn btn-danger btn-sm" onclick="return confirm('このバックナンバーを完全に削除しますか？復元できません。')">削除</button>
         </div>
       </form>
     </section>
