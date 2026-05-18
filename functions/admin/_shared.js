@@ -60,7 +60,7 @@ export function nl2br(s) {
 const NAV_ITEMS = [
   { key: 'proposals',   label: '提案管理',         href: '/admin/proposals/' },
   { key: 'members',     label: '会員管理',         href: '/admin/members/' },
-  { key: 'newsletters', label: 'バックナンバー管理', href: '/admin/newsletters/' },
+  { key: 'newsletters', label: 'ニュースレター管理', href: '/admin/newsletters/' },
 ];
 
 export function renderShell({ title, body, activeNav }) {

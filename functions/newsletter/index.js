@@ -1,5 +1,5 @@
 /**
- * /newsletter/  —  バックナンバー一覧（公開済みのみ表示）
+ * /newsletter/  —  ニュースレター一覧（公開済みのみ表示）
  */
 import { renderShell, esc, escAttr } from './_shared.js';
 
@@ -44,22 +44,22 @@ export async function onRequestGet(context) {
         </span>
       </a>
     `;
-  }).join('') || '<div class="section-empty">まだ公開されているバックナンバーはありません</div>';
+  }).join('') || '<div class="section-empty">まだ公開されているニュースレターはありません</div>';
 
   const body = `
     <span class="section-label">Newsletter</span>
-    <h1 class="page-title">バックナンバー</h1>
+    <h1 class="page-title">ニュースレター</h1>
     <p style="color:var(--jhta-text-light);margin:0 0 2rem">
-      JHTA が毎週配信している業界 DX に関するニュースのバックナンバーです。
+      JHTA が毎週配信している業界 DX に関するニュースレターです。
       <span class="nl-badge" style="margin-left:0">🔒 会員限定</span> のついた記事は冒頭のみ公開、続きは会員ログインで閲覧できます。
     </p>
     <div class="nl-list">${items}</div>
   `;
 
   return new Response(renderShell({
-    title: 'バックナンバー',
-    description: 'JHTA Tech Portal のバックナンバー一覧。業界DXに関する週次配信ニュースを公開しています。',
-    breadcrumb: '<a href="/">ホーム</a> <span>/</span> <span>バックナンバー</span>',
+    title: 'ニュースレター',
+    description: 'JHTA Tech Portal のニュースレター一覧。業界DXに関する週次配信ニュースレターを公開しています。',
+    breadcrumb: '<a href="/">ホーム</a> <span>/</span> <span>ニュースレター</span>',
     body,
   }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },

@@ -1,5 +1,5 @@
 /**
- * /newsletter/[slug]  —  バックナンバー記事ページ
+ * /newsletter/[slug]  —  ニュースレター記事ページ
  * 公開記事：全文表示
  * 会員記事：ログイン済→全文、未ログイン→ティザー＋CTA
  */
@@ -25,11 +25,11 @@ export async function onRequestGet(context) {
   if (!n) {
     return new Response(renderShell({
       title: '記事が見つかりません',
-      breadcrumb: '<a href="/">ホーム</a> <span>/</span> <a href="/newsletter/">バックナンバー</a>',
+      breadcrumb: '<a href="/">ホーム</a> <span>/</span> <a href="/newsletter/">ニュースレター</a>',
       body: `
         <h1 class="page-title">記事が見つかりません</h1>
-        <p>指定されたバックナンバーは存在しないか、まだ公開されていません。</p>
-        <p class="section-back"><a href="/newsletter/" class="btn btn-outline">← バックナンバー一覧へ</a></p>
+        <p>指定されたニュースレターは存在しないか、まだ公開されていません。</p>
+        <p class="section-back"><a href="/newsletter/" class="btn btn-outline">← ニュースレター一覧へ</a></p>
       `,
     }), { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   }
@@ -51,13 +51,13 @@ export async function onRequestGet(context) {
       <time datetime="${escAttr(date)}">公開日: ${esc(date.replace(/-/g, '.'))}</time>
     </div>
     <div class="nl-body">${renderedBody}</div>
-    <p class="section-back"><a href="/newsletter/" class="btn btn-outline">← バックナンバー一覧へ</a></p>
+    <p class="section-back"><a href="/newsletter/" class="btn btn-outline">← ニュースレター一覧へ</a></p>
   `;
 
   return new Response(renderShell({
     title: n.title,
     description: n.summary || undefined,
-    breadcrumb: `<a href="/">ホーム</a> <span>/</span> <a href="/newsletter/">バックナンバー</a> <span>/</span> <span>${esc(n.title)}</span>`,
+    breadcrumb: `<a href="/">ホーム</a> <span>/</span> <a href="/newsletter/">ニュースレター</a> <span>/</span> <span>${esc(n.title)}</span>`,
     body,
   }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
@@ -94,7 +94,7 @@ function renderGate() {
     <div class="nl-gate">
       <div class="nl-gate-title">この続きは JHTA 会員のみ閲覧いただけます</div>
       <div class="nl-gate-desc">
-        JHTA 会員になると、業界 DX に関する週次配信ニュースのバックナンバーをすべて閲覧できます。<br>
+        JHTA 会員になると、業界 DX に関する週次配信ニュースレターをすべて閲覧できます。<br>
         既に会員の方はログインしてください。
       </div>
       <div class="nl-gate-actions">

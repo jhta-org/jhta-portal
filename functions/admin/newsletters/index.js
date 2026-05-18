@@ -1,5 +1,5 @@
 /**
- * /admin/newsletters/  —  バックナンバー管理画面
+ * /admin/newsletters/  —  ニュースレター管理画面
  * GET:  一覧
  * POST: _action = 'create' で空の下書きを作成し、編集ページへリダイレクト
  */
@@ -85,7 +85,7 @@ export async function onRequestGet(context) {
         <td class="adm-date">${esc(r.updated_at)}</td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="6" class="adm-empty">該当するバックナンバーはありません</td></tr>';
+  }).join('') || '<tr><td colspan="6" class="adm-empty">該当するニュースレターはありません</td></tr>';
 
   const body = `
     ${flash ? `<div class="adm-flash">${esc(flash)}</div>` : ''}
@@ -137,7 +137,7 @@ export async function onRequestGet(context) {
     </section>
   `;
 
-  return new Response(renderShell({ title: 'バックナンバー管理', body, activeNav: 'newsletters' }), {
+  return new Response(renderShell({ title: 'ニュースレター管理', body, activeNav: 'newsletters' }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
 }
@@ -150,7 +150,7 @@ export async function onRequestPost(context) {
   if (action === 'create') {
     // 空の下書きを作成
     const slug = 'draft-' + Date.now().toString(36);
-    const title = '無題のバックナンバー';
+    const title = '無題のニュースレター';
     const body = '';
     const result = await env.DB.prepare(
       `INSERT INTO newsletters (slug, title, body) VALUES (?, ?, ?) RETURNING id`

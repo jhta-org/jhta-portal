@@ -1,5 +1,5 @@
 /**
- * /admin/newsletters/[id]  —  バックナンバー編集
+ * /admin/newsletters/[id]  —  ニュースレター編集
  * GET:  編集フォーム表示
  * POST: _action = 'save' | 'publish' | 'unpublish' | 'delete'
  */
@@ -15,9 +15,9 @@ export async function onRequestGet(context) {
   const n = await env.DB.prepare(`SELECT * FROM newsletters WHERE id = ?`).bind(id).first();
   if (!n) {
     return new Response(renderShell({
-      title: 'バックナンバーが見つかりません',
+      title: 'ニュースレターが見つかりません',
       activeNav: 'newsletters',
-      body: `<p class="adm-no-data">ID ${id} のバックナンバーは存在しません。</p>
+      body: `<p class="adm-no-data">ID ${id} のニュースレターは存在しません。</p>
              <p><a class="btn btn-ghost btn-sm" href="/admin/newsletters/">← 一覧に戻る</a></p>`,
     }), { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   }
@@ -25,7 +25,7 @@ export async function onRequestGet(context) {
   const publicUrl = `https://tech.j-hta.org/newsletter/${n.slug}`;
 
   const body = `
-    <a href="/admin/newsletters/" class="adm-back-link">← バックナンバー一覧</a>
+    <a href="/admin/newsletters/" class="adm-back-link">← ニュースレター一覧</a>
     ${flash ? `<div class="adm-flash">${esc(flash)}</div>` : ''}
 
     <section class="adm-card">
@@ -73,18 +73,18 @@ export async function onRequestGet(context) {
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
             <button type="submit" name="_action" value="save" class="btn btn-ghost btn-sm">下書き保存</button>
             ${n.status !== 'published' ? `
-              <button type="submit" name="_action" value="publish" class="btn btn-navy btn-sm" onclick="return confirm('このバックナンバーを公開しますか？')">公開する</button>
+              <button type="submit" name="_action" value="publish" class="btn btn-navy btn-sm" onclick="return confirm('このニュースレターを公開しますか？')">公開する</button>
             ` : `
               <button type="submit" name="_action" value="unpublish" class="btn btn-ghost btn-sm" onclick="return confirm('公開を取り下げ下書きに戻しますか？')">公開取り下げ</button>
             `}
           </div>
-          <button type="submit" name="_action" value="delete" formnovalidate class="btn btn-danger btn-sm" onclick="return confirm('このバックナンバーを完全に削除しますか？復元できません。')">削除</button>
+          <button type="submit" name="_action" value="delete" formnovalidate class="btn btn-danger btn-sm" onclick="return confirm('このニュースレターを完全に削除しますか？復元できません。')">削除</button>
         </div>
       </form>
     </section>
   `;
 
-  return new Response(renderShell({ title: `バックナンバー: ${n.title}`, body, activeNav: 'newsletters' }), {
+  return new Response(renderShell({ title: `ニュースレター: ${n.title}`, body, activeNav: 'newsletters' }), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
 }

@@ -1,5 +1,5 @@
 /**
- * 公開バックナンバーページ共通ヘルパー
+ * 公開ニュースレターページ共通ヘルパー
  */
 
 export function esc(s) {
@@ -111,7 +111,7 @@ ${description ? `<meta name="description" content="${escAttr(description)}">` : 
     <nav class="site-nav">
       <a href="/documents/">成果物</a>
       <a href="/workgroups/">ワーキンググループ</a>
-      <a href="/newsletter/">バックナンバー</a>
+      <a href="/newsletter/">ニュースレター</a>
       <a href="/news/">ニュース</a>
       <a href="/about/">JHTAについて</a>
     </nav>
