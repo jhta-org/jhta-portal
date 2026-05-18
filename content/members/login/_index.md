@@ -76,6 +76,13 @@ hiddenInHomeList: true
         codeInput.focus();
         otpMsg.hidden = true;
         otpMsg.textContent = '';
+      } else if (body.not_member) {
+        emailMsg.innerHTML = '⚠️ このメールアドレスは JHTA 会員として登録されていません。<br>' +
+          '会員でない方は <a href="https://www.j-hta.org/" target="_blank" rel="noopener">JHTA 公式サイト</a> より会員登録をお願いします。<br>' +
+          'メールアドレスを間違えた場合は再度ご入力ください。';
+        emailMsg.classList.add('form-message-error');
+        emailMsg.hidden = false;
+        btn.disabled = false; btn.textContent = '認証コードを送信';
       } else {
         emailMsg.textContent = '⚠️ ' + (body.error || '送信に失敗しました');
         emailMsg.classList.add('form-message-error');

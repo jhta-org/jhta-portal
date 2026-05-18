@@ -81,14 +81,15 @@ export async function onRequestPost(context) {
   ).run();
 
   const maxAge = SESSION_DAYS * 24 * 3600;
-  const cookie = `jhta_member=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax; Secure`;
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  // 認証本体（HttpOnly）
+  headers.append('Set-Cookie', `jhta_member=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; SameSite=Lax; Secure`);
+  // JS から読めるログイン状態フラグ（非HttpOnly、機密情報は含まない）
+  headers.append('Set-Cookie', `jhta_member_status=1; Path=/; Max-Age=${maxAge}; SameSite=Lax; Secure`);
 
   return new Response(JSON.stringify({ ok: true, name: member.name }), {
     status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Set-Cookie': cookie,
-    },
+    headers,
   });
 }
 

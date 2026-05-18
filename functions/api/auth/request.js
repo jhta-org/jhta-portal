@@ -19,34 +19,39 @@ export async function onRequestPost(context) {
     `SELECT email, name, status FROM members WHERE email = ?`
   ).bind(email).first();
 
-  // 会員が居ない／無効でも、攻撃者にバレないよう同じレスポンス（ok）を返す
-  // 実際にメール送信は会員のみ
-  if (member && member.status === 'active') {
-    const code = generateOtpCode();
-    const codeHash = await sha256Hex(code);
-
-    // 既存の未使用コードを無効化
-    await env.DB.prepare(
-      `UPDATE member_otp_codes SET used_at = datetime('now', '+9 hours')
-       WHERE email = ? AND used_at IS NULL`
-    ).bind(email).run();
-
-    // 新規コード保存（5分有効）
-    await env.DB.prepare(
-      `INSERT INTO member_otp_codes (email, code_hash, expires_at)
-       VALUES (?, ?, datetime('now', '+9 hours', '+5 minutes'))`
-    ).bind(email, codeHash).run();
-
-    // メール送信（waitUntilでバックグラウンド）
-    const sendPromise = sendOtpEmail(env, email, member.name, code).catch(err => {
-      console.error('OTP email send error:', err);
-    });
-    if (typeof waitUntil === 'function') waitUntil(sendPromise);
-    else await sendPromise;
-  } else {
-    // 会員でない場合もタイミング差で漏れないように少し待つ
-    await new Promise(r => setTimeout(r, 200));
+  if (!member) {
+    return json({
+      error: 'このメールアドレスは JHTA 会員として登録されていません。',
+      not_member: true,
+    }, 404);
   }
+  if (member.status !== 'active') {
+    return json({
+      error: 'このアカウントは無効化されています。事務局にお問い合わせください。',
+    }, 403);
+  }
+
+  const code = generateOtpCode();
+  const codeHash = await sha256Hex(code);
+
+  // 既存の未使用コードを無効化
+  await env.DB.prepare(
+    `UPDATE member_otp_codes SET used_at = datetime('now', '+9 hours')
+     WHERE email = ? AND used_at IS NULL`
+  ).bind(email).run();
+
+  // 新規コード保存（5分有効）
+  await env.DB.prepare(
+    `INSERT INTO member_otp_codes (email, code_hash, expires_at)
+     VALUES (?, ?, datetime('now', '+9 hours', '+5 minutes'))`
+  ).bind(email, codeHash).run();
+
+  // メール送信（waitUntilでバックグラウンド）
+  const sendPromise = sendOtpEmail(env, email, member.name, code).catch(err => {
+    console.error('OTP email send error:', err);
+  });
+  if (typeof waitUntil === 'function') waitUntil(sendPromise);
+  else await sendPromise;
 
   return json({ ok: true }, 200);
 }

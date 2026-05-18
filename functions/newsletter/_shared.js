@@ -114,14 +114,24 @@ ${description ? `<meta name="description" content="${escAttr(description)}">` : 
 <footer class="site-footer">
   <div class="site-footer-inner">
     <span>© 2026 日本ホスピタリティテクノロジー協会（JHTA）</span>
+    <span class="footer-member-status" id="footer-member-status" hidden>
+      🔓 会員ログイン中 <a href="/members/logout/">ログアウト</a>
+    </span>
     <a href="/admin/proposals/" class="footer-admin-link" id="footer-admin-link" hidden>🔧 管理画面</a>
   </div>
 </footer>
 <script>
-  if (document.cookie.split(';').some(c => c.trim().startsWith('jhta_admin='))) {
-    var el = document.getElementById('footer-admin-link');
-    if (el) el.hidden = false;
-  }
+  (function() {
+    var cookies = document.cookie.split(';').map(function(c){ return c.trim(); });
+    if (cookies.some(function(c){ return c.startsWith('jhta_member_status='); })) {
+      var m = document.getElementById('footer-member-status');
+      if (m) m.hidden = false;
+    }
+    if (cookies.some(function(c){ return c.startsWith('jhta_admin='); })) {
+      var a = document.getElementById('footer-admin-link');
+      if (a) a.hidden = false;
+    }
+  })();
 </script>
 </body>
 </html>`;
