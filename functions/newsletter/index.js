@@ -66,18 +66,12 @@ export async function onRequestGet(context) {
     allCount += r.c;
   }
 
-  // タイトルから号番号だけ抜く
-  const issueNo = (title) => {
-    if (!title) return '';
-    const m = title.match(/No\.\s*[\d-]+/);
-    return m ? m[0] : '';
-  };
-
   const items = results.map(r => {
     const date = (r.published_at || '').slice(0, 10).replace(/-/g, '.');
     const badge = r.visibility === 'members' ? `<span class="nl-badge">🔒 会員限定</span>` : '';
-    const headline = r.summary || r.title;
-    const subhead = r.summary ? issueNo(r.title) : '';
+    // title=記事テーマ／summary=号番号(No.XXXXX) という前提
+    const headline = r.title;
+    const subhead = r.summary || '';
     return `
       <a href="/newsletter/${escAttr(r.slug)}" class="nl-item">
         <time datetime="${escAttr((r.published_at || '').slice(0, 10))}">${esc(date)}</time>

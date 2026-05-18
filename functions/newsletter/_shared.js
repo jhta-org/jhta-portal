@@ -102,27 +102,38 @@ export function renderShell({ title, description, body, breadcrumb }) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)} | JHTA Tech Portal</title>
 ${description ? `<meta name="description" content="${escAttr(description)}">` : ''}
+<link rel="icon" href="/favicon.ico">
 <style>${SITE_CSS}</style>
 </head>
-<body>
-<header class="site-header">
-  <div class="site-header-inner">
-    <a class="site-logo" href="/">JHTA Tech Portal</a>
-    <nav class="site-nav">
-      <a href="/documents/">成果物</a>
-      <a href="/workgroups/">ワーキンググループ</a>
-      <a href="/newsletter/">ニュースレター</a>
-      <a href="/news/">ニュース</a>
-      <a href="/about/">JHTAについて</a>
-    </nav>
-  </div>
+<body class="list" id="top">
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      <a href="/" title="JHTA Tech Portal">
+        <img src="/images/logo.png" alt="JHTA" height="36" class="logo-img">
+        <span class="logo-text">JHTA Tech Portal</span>
+      </a>
+    </div>
+    <ul id="menu">
+      <li><a href="/about/"><span>概要</span></a></li>
+      <li><a href="/workgroups/"><span>ワーキンググループ</span></a></li>
+      <li><a href="/documents/"><span>ドキュメント</span></a></li>
+      <li><a href="/news/"><span>ニュース</span></a></li>
+      <li><a href="/newsletter/" class="active"><span>ニュースレター</span></a></li>
+      <li><a href="https://j-hta.org/" target="_blank" rel="noopener"><span>公式サイト</span>&nbsp;<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg></a></li>
+    </ul>
+  </nav>
 </header>
-<main class="site-main">
-  ${breadcrumb ? `<nav class="breadcrumb">${breadcrumb}</nav>` : ''}
-  ${body}
+<main class="main">
+  <section class="section">
+    <div class="section-inner">
+      ${breadcrumb ? `<nav class="breadcrumb">${breadcrumb}</nav>` : ''}
+      ${body}
+    </div>
+  </section>
 </main>
-<footer class="site-footer">
-  <div class="site-footer-inner">
+<footer class="footer-outer">
+  <div class="footer">
     <span>© 2026 日本ホスピタリティテクノロジー協会（JHTA）</span>
     <span class="footer-member-status" id="footer-member-status" hidden>
       🔓 会員ログイン中 <a href="/members/logout/">ログアウト</a>

@@ -62,16 +62,10 @@ export async function onRequestGet(context) {
     return `<a class="adm-chip${active}" href="?${params.toString()}">${esc(label)}</a>`;
   }).join('');
 
-  // タイトルから号番号だけ抽出（例: 「【…】No.25012」 → 「No.25012」）
-  const issueNo = (t) => {
-    if (!t) return '';
-    const m = t.match(/No\.\s*[\d-]+/);
-    return m ? m[0] : '';
-  };
-
   const rows = results.map(r => {
-    const headline = r.summary || r.title || '(無題)';
-    const subhead = r.summary ? issueNo(r.title) : '';
+    // title=記事テーマ／summary=号番号 という前提
+    const headline = r.title || '(無題)';
+    const subhead = r.summary || '';
     return `
       <tr>
         <td>${esc(r.id)}</td>
